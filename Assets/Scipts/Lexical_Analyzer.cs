@@ -60,7 +60,7 @@ public class Lexical_Analyzer : MonoBehaviour
     void TextAnalyzer(string Word, int Line)
     {
         //int ASCII = default;
-        string NewWord = default;
+        //string NewWord = default;
 
         // Recorro cada caracter de la palabra
         for (int i = 0; i < Word.Length; i++)
