@@ -236,9 +236,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68491ce743aa9043b9725265629948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: 'Hola Mundo _Hola;
+  Text: 'int num = 1;
 
-    Hola Perro Desgraciado'
+    if(num<6){
+
+    num++;
+
+    }'
 --- !u!4 &732671018
 Transform:
   m_ObjectHideFlags: 0

@@ -69,23 +69,54 @@ public class Lexical_Analyzer : MonoBehaviour
             {
                 if (Word[i] == 95 || Word[i] >= 65 && Word[i] <= 90 || Word[i] >= 97 && Word[i] <= 122)
                 {
-                    Debug.Log(Word[i] +" es una variable, num. linea "+Line);
+                    Debug.Log(Word +" es una variable, num. linea "+Line);
                 }
-
+                
+                if (Word[i] == 125)
+                {
+                    Debug.Log(Word[i] + " es una Llave cerrada, num. linea " + Line);
+                    Word = Word.Remove(i);
+                    goto Extra;
+                }
             }
             else
             {
-                //if (Word[i] == 95 || Word[i] >= 65 && Word[i] <= 90 || Word[i] >= 97 && Word[i] <= 122)
-                //{
-                //    Debug.Log(Word[i] + " es una variable, num. linea " + Line);
-                //}
+                if (Word[i] == 43)
+                {
+                    if (Word[i+1] == 43)
+                    {
+                        Debug.Log(Word[i] + "" + Word[i+1] + " es un Incrementador, num. linea " + Line);
+                        Word = Word.Remove(i, 2);
+                        i -= 1;
+                        goto Extra;
+                    }
+                }
+
+                if (Word[i] == 123)
+                {
+                    Debug.Log(Word[i] + " es una Llave abierta, num. linea " + Line);
+                    goto Extra;
+                }
+
+                if (Word[i] == 125)
+                {
+                    Debug.Log("Hello World");
+                    Debug.Log(Word[i] + " es una Llave cerrada, num. linea " + Line);
+                    Word = Word.Remove(i);
+                    Debug.Log(Word);
+                    goto Extra;
+                }
+
                 if (Word[i] == 59)
                 {
-                    Debug.Log(Word[i] + " es un PyC, num. linea " +Line);
-                    break;
+                    Debug.Log(Word[i] + " es un PyC, num. linea " + Line);
+                    Word = Word.Remove(i);
+                    goto Extra;
                 }
-            }
 
+                
+            }
+            Extra:;
         }
     }
 
