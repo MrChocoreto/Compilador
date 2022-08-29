@@ -61,10 +61,11 @@ public class Lexical_Analyzer : MonoBehaviour
     {
         //int ASCII = default;
         string NewWord = default;
+
         // Recorro cada caracter de la palabra
         for (int i = 0; i < Word.Length; i++)
         {
-            NewWord = NewWord + Word[i];
+            //NewWord = NewWord + Word[i];
             // corroboro que el primer caracter de la palabra sea una letra o un guion bajo
             if (i==0)
             {
