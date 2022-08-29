@@ -5,6 +5,13 @@ public class Lexical_Analyzer : MonoBehaviour
     [SerializeField, TextArea] private string Text = default;
     private int NumLine = default;
 
+    private void Start()
+    {
+        WordAnalyzer("hola", 5);
+    }
+
+
+
 
     [ContextMenu("Lexical_Analyzer")]
     void SpaceAnalyzer()
@@ -39,7 +46,7 @@ public class Lexical_Analyzer : MonoBehaviour
 
 
                 // le mando la palabra y el numero de linea al metodo
-                TextAnalyzer(word, NumLine);
+                WordAnalyzer(word, NumLine);
 
                 // y vuelvo a vaciar al variable que almacena cada frase
                 word = default;
@@ -56,69 +63,48 @@ public class Lexical_Analyzer : MonoBehaviour
             }
         }
     }
-
-    void TextAnalyzer(string Word, int Line)
+    
+    /// <summary>
+    /// Este metodo analiza palabras
+    /// </summary>
+    /// 
+    /// <param name="Word">La palabra que recibe</param>
+    /// <param name="Line">linea en la que esta la palabra</param>
+    void WordAnalyzer(string Word, int Line)
     {
         //int ASCII = default;
         string NewWord = default;
+        string Signal = default;
         // Recorro cada caracter de la palabra
         for (int i = 0; i < Word.Length; i++)
         {
-            NewWord = NewWord + Word[i];
             // corroboro que el primer caracter de la palabra sea una letra o un guion bajo
-            if (i==0)
+            if (Word[i] == 95 || Word[i] >= 65 && Word[i] <= 90 || Word[i] >= 97 && Word[i] <= 122)
             {
-                if (Word[i] == 95 || Word[i] >= 65 && Word[i] <= 90 || Word[i] >= 97 && Word[i] <= 122)
-                {
-                    Debug.Log(Word +" es una variable, num. linea "+Line);
-                }
-                
-                if (Word[i] == 125)
-                {
-                    Debug.Log(Word[i] + " es una Llave cerrada, num. linea " + Line);
-                    Word = Word.Remove(i);
-                    goto Extra;
-                }
+                NewWord = NewWord + Word[i];
             }
             else
             {
-                if (Word[i] == 43)
+                if (NewWord != null)
                 {
-                    if (Word[i+1] == 43)
-                    {
-                        Debug.Log(Word[i] + "" + Word[i+1] + " es un Incrementador, num. linea " + Line);
-                        Word = Word.Remove(i, 2);
-                        i -= 1;
-                        goto Extra;
-                    }
+                    Debug.Log(NewWord);
                 }
-
-                if (Word[i] == 123)
-                {
-                    Debug.Log(Word[i] + " es una Llave abierta, num. linea " + Line);
-                    goto Extra;
-                }
-
-                if (Word[i] == 125)
-                {
-                    Debug.Log("Hello World");
-                    Debug.Log(Word[i] + " es una Llave cerrada, num. linea " + Line);
-                    Word = Word.Remove(i);
-                    Debug.Log(Word);
-                    goto Extra;
-                }
-
-                if (Word[i] == 59)
-                {
-                    Debug.Log(Word[i] + " es un PyC, num. linea " + Line);
-                    Word = Word.Remove(i);
-                    goto Extra;
-                }
-
-                
+                Signal = Word[i].ToString();
+                Debug.Log(Word[i] + " es un simbolo, num. linea " + Line);
+                NewWord = default;
             }
-            Extra:;
+        }
+
+
+        if (NewWord != null)
+        {
+            Debug.Log(NewWord);
         }
     }
 
+
+    void SignalAnalyzer()
+    {
+
+    }
 }
