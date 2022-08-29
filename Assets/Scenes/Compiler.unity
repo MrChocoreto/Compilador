@@ -236,7 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68491ce743aa9043b9725265629948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: Hola puto
+  Text: 'Hola Mundo _Hola;
+
+    Hola Perro Desgraciado'
 --- !u!4 &732671018
 Transform:
   m_ObjectHideFlags: 0
