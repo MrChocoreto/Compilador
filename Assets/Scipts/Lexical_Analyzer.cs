@@ -5,6 +5,13 @@ public class Lexical_Analyzer : MonoBehaviour
     [SerializeField, TextArea] private string Text = default;
     private int NumLine = default;
 
+    private void Start()
+    {
+        WordAnalyzer("hola", 5);
+    }
+
+
+
 
     [ContextMenu("Lexical_Analyzer")]
     void SpaceAnalyzer()
@@ -56,12 +63,18 @@ public class Lexical_Analyzer : MonoBehaviour
             }
         }
     }
-
+    
+    /// <summary>
+    /// Este metodo analiza palabras
+    /// </summary>
+    /// 
+    /// <param name="Word">La palabra que recibe</param>
+    /// <param name="Line">linea en la que esta la palabra</param>
     void WordAnalyzer(string Word, int Line)
     {
         //int ASCII = default;
         string NewWord = default;
-
+        string Signal = default;
         // Recorro cada caracter de la palabra
         for (int i = 0; i < Word.Length; i++)
         {
@@ -72,12 +85,26 @@ public class Lexical_Analyzer : MonoBehaviour
             }
             else
             {
-                Debug.Log(NewWord);
+                if (NewWord != null)
+                {
+                    Debug.Log(NewWord);
+                }
+                Signal = Word[i].ToString();
                 Debug.Log(Word[i] + " es un simbolo, num. linea " + Line);
                 NewWord = default;
             }
         }
-        Debug.Log(NewWord);
+
+
+        if (NewWord != null)
+        {
+            Debug.Log(NewWord);
+        }
     }
 
+
+    void SignalAnalyzer()
+    {
+
+    }
 }
