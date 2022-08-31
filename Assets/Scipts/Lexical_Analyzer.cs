@@ -64,20 +64,14 @@ public class Lexical_Analyzer : MonoBehaviour
             }
         }
     }
-    
-    /// <summary>
-    /// Este metodo analiza palabras
-    /// </summary>
-    /// 
-    /// <param name="Word">La palabra que recibe</param>
-    /// <param name="Line">linea en la que esta la palabra</param>
+
+
+
     void WordAnalyzer(string Word, int Line)
     {
-        bool ResetWord = false;
         bool SignalDected = false;
         //int ASCII = default;
         string NewWord = default;
-        string Signal = default;
         // Recorro cada caracter de la palabra
         for (int i = 0; i < Word.Length; i++)
         {
@@ -93,7 +87,7 @@ public class Lexical_Analyzer : MonoBehaviour
                 {
                     Debug.Log(NewWord);
                 }
-                if (Word.Length-1 > 1)
+                if (Word.Length > 1)
                 {
                     if (i < Word.Length - 1)
                     {
@@ -113,12 +107,11 @@ public class Lexical_Analyzer : MonoBehaviour
                         SignalAnalyzer(Word[i], ' ', Line);
                     }
                 }
-                else if (Word.Length < 1 || i == Word.Length+1)
+                else if (Word.Length-1 < 1 || i == Word.Length+1)
                 {
                    SignalAnalyzer(Word[i], ' ', Line);
                 }
                 
-                //Debug.Log(Word[i] + " es un simbolo, num. linea " + Line);
             }
 
 

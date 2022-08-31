@@ -240,7 +240,7 @@ MonoBehaviour:
 
     if(num<6){
 
-    num+1;
+    num++;
 
     }'
 --- !u!4 &732671018
