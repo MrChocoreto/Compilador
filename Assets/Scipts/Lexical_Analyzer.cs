@@ -1,3 +1,5 @@
+using TreeEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Lexical_Analyzer : MonoBehaviour
@@ -7,9 +9,8 @@ public class Lexical_Analyzer : MonoBehaviour
 
     private void Start()
     {
-        WordAnalyzer("hola", 5);
+        SpaceAnalyzer();
     }
-
 
 
 
@@ -72,6 +73,8 @@ public class Lexical_Analyzer : MonoBehaviour
     /// <param name="Line">linea en la que esta la palabra</param>
     void WordAnalyzer(string Word, int Line)
     {
+        bool ResetWord = false;
+        bool SignalDected = false;
         //int ASCII = default;
         string NewWord = default;
         string Signal = default;
@@ -79,32 +82,111 @@ public class Lexical_Analyzer : MonoBehaviour
         for (int i = 0; i < Word.Length; i++)
         {
             // corroboro que el primer caracter de la palabra sea una letra o un guion bajo
-            if (Word[i] == 95 || Word[i] >= 65 && Word[i] <= 90 || Word[i] >= 97 && Word[i] <= 122)
+            if (Word[i] == 95 || Word[i] >= 65 && Word[i] <= 90 || Word[i] >= 97 && Word[i] <= 122 || Word[i] >= 47 && Word[i] <= 58)
             {
                 NewWord = NewWord + Word[i];
             }
             else
             {
+                SignalDected = true;
                 if (NewWord != null)
                 {
                     Debug.Log(NewWord);
                 }
-                Signal = Word[i].ToString();
-                Debug.Log(Word[i] + " es un simbolo, num. linea " + Line);
-                NewWord = default;
+                if (Word.Length-1 > 1)
+                {
+                    if (i < Word.Length - 1)
+                    {
+                        if (SignalAnalyzer(Word[i], Word[i + 1], Line))
+                        {
+                            NewWord = default;
+                            i += 2;
+                        }
+                        else
+                        {
+                            NewWord = default;
+                            goto Exit;
+                        }
+                    }
+                    else
+                    {
+                        SignalAnalyzer(Word[i], ' ', Line);
+                    }
+                }
+                else if (Word.Length < 1 || i == Word.Length+1)
+                {
+                   SignalAnalyzer(Word[i], ' ', Line);
+                }
+                
+                //Debug.Log(Word[i] + " es un simbolo, num. linea " + Line);
             }
+
+
+            Exit:;
         }
 
 
-        if (NewWord != null)
+        if (NewWord != null && !SignalDected)
         {
             Debug.Log(NewWord);
         }
     }
 
 
-    void SignalAnalyzer()
+    bool SignalAnalyzer(char Signal_1, char Signal_2, int line)
     {
+        bool IsDouble = false;
+        switch (Signal_1)
+        {
+            case '+':
+                if (Signal_2 == '+')
+                {
+                    Debug.Log(Signal_1 + "" + Signal_2 + " es un incremento, num. linea " + line);
+                    IsDouble = true;
+                }
+                else
+                {
+                    Debug.Log(Signal_1 + " es un operador, num. linea " + line);
+                }
+                break;
 
+            case '=': Debug.Log(Signal_1 + " es un operador, num. linea " + line);
+                IsDouble = false;
+                break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            //case:
+            //    break;
+
+            default: IsDouble = false; Debug.Log(Signal_1 + " soy un simbolo, num. linea " + line);
+                break;
+        }
+        return IsDouble;
     }
 }
