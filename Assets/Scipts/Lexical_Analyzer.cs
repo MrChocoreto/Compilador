@@ -1,17 +1,30 @@
+using System;
 using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Lexical_Analyzer : MonoBehaviour
 {
+
+    #region Variables
+
     [SerializeField, TextArea] private string Text = default;
     private int NumLine = default;
+
+    #endregion
+
+
+    #region UnityMethods
 
     private void Start()
     {
         SpaceAnalyzer();
     }
 
+    #endregion
+
+
+    #region SpaceAnalizer
 
 
     [ContextMenu("Lexical_Analyzer")]
@@ -43,14 +56,26 @@ public class Lexical_Analyzer : MonoBehaviour
                 if (i == Text.Length - 1)
                 {
                     word = word + Text[Text.Length-1];
+                    WordAnalyzer(word, NumLine);
+                }
+                else if(word == null && ASCII == 10)
+                {
+                    // en caso de que haya un enter y no se haya generado una palabra
+                    // es porque solo se ha hecho un salto de linea
+                    NumLine++;
+                    Debug.Log("Hay solamente un enter");
+                }
+                else
+                {
+                    // le mando la palabra y el numero de linea al metodo
+                    WordAnalyzer(word, NumLine);
+
+                    // y vuelvo a vaciar al variable que almacena cada frase
+                    word = default;
+
                 }
 
 
-                // le mando la palabra y el numero de linea al metodo
-                WordAnalyzer(word, NumLine);
-
-                // y vuelvo a vaciar al variable que almacena cada frase
-                word = default;
             }
             else
             {
@@ -66,6 +91,11 @@ public class Lexical_Analyzer : MonoBehaviour
     }
 
 
+    #endregion
+
+
+    #region WordAnalizer
+
 
     void WordAnalyzer(string Word, int Line)
     {
@@ -76,25 +106,39 @@ public class Lexical_Analyzer : MonoBehaviour
         for (int i = 0; i < Word.Length; i++)
         {
             // corroboro que el primer caracter de la palabra sea una letra o un guion bajo
-            if (Word[i] == 95 || Word[i] >= 65 && Word[i] <= 90 || Word[i] >= 97 && Word[i] <= 122 || Word[i] >= 47 && Word[i] <= 58)
+            if (Word[i] == 95 || Word[i] >= 65 && Word[i] <= 90 || Word[i] >= 97 && Word[i] <= 122 || i > 0 && Word[i] >= 48 && Word[i] <= 57)
             {
+                SignalDected = false;
                 NewWord = NewWord + Word[i];
+            }
+            else if(Word[i] >= 48 && Word[i] <= 57)
+            {
+                SignalDected = false;
+                i += NumA(Line, Word);
             }
             else
             {
                 SignalDected = true;
+                // en caso de que se trate de que lo que se escriba sea un numero es porque 
                 if (NewWord != null)
                 {
-                    Debug.Log(NewWord);
+                    if (NewWord[0] >= 48 && NewWord[0] <= 57)
+                    {
+                        i += NumA(Line, NewWord);
+                    }
+                    else
+                    {
+                        Debug.Log(NewWord);
+                    }
                 }
                 if (Word.Length > 1)
                 {
                     if (i < Word.Length - 1)
                     {
-                        if (SignalAnalyzer(Word[i], Word[i + 1], Line))
+                        if (SigA(Word[i], Word[i + 1], Line))
                         {
                             NewWord = default;
-                            i += 2;
+                            i += 1;
                         }
                         else
                         {
@@ -104,29 +148,46 @@ public class Lexical_Analyzer : MonoBehaviour
                     }
                     else
                     {
-                        SignalAnalyzer(Word[i], ' ', Line);
+                        SigA(Word[i], ' ', Line);
+                        NewWord = default;
+                        goto Exit;
                     }
                 }
                 else if (Word.Length-1 < 1 || i == Word.Length+1)
                 {
-                   SignalAnalyzer(Word[i], ' ', Line);
+                    SigA(Word[i], ' ', Line);
+                    NewWord = default;
+                    goto Exit;
                 }
                 
             }
 
 
             Exit:;
+            
         }
 
-
-        if (NewWord != null && !SignalDected)
+        if (NewWord != null && !SignalDected || NewWord != null && SignalDected)
         {
             Debug.Log(NewWord);
         }
+
     }
 
 
-    bool SignalAnalyzer(char Signal_1, char Signal_2, int line)
+    #endregion
+
+
+    #region SNA
+
+    /// <summary>
+    /// SNA means Singal and Numbers Analizer
+    /// </summary>
+    /// <param name="Signal_1"></param>
+    /// <param name="Signal_2"></param>
+    /// <param name="line"></param>
+    /// <returns></returns>
+    bool SigA(char Signal_1, char Signal_2, int line)
     {
         bool IsDouble = false;
         switch (Signal_1)
@@ -140,30 +201,76 @@ public class Lexical_Analyzer : MonoBehaviour
                 else
                 {
                     Debug.Log(Signal_1 + " es un operador, num. linea " + line);
+                    IsDouble = false;
                 }
                 break;
+
+            case '-':
+                if (Signal_2 == '-')
+                {
+                    Debug.Log(Signal_1 + "" + Signal_2 + " es un decremento, num. linea " + line);
+                    IsDouble = true;
+                }
+                else
+                {
+                    Debug.Log(Signal_1 + " es un operador, num. linea " + line);
+                    IsDouble = false;
+                }
+                break;
+
 
             case '=': Debug.Log(Signal_1 + " es un operador, num. linea " + line);
                 IsDouble = false;
                 break;
 
-            //case:
-            //    break;
+            case '{': Debug.Log(Signal_1 + " es una llave abierta, num. linea " + line);
+                IsDouble = false;
+                break;
 
-            //case:
-            //    break;
+            case '}': Debug.Log(Signal_1 + " es una llave cerrada, num. linea " + line);
+                IsDouble = false;
+                break;
 
-            //case:
-            //    break;
+            case '[':
+                Debug.Log(Signal_1 + " es una llave cerrada, num. linea " + line);
+                IsDouble = false;
+                break;
 
-            //case:
-            //    break;
+            case ']':
+                Debug.Log(Signal_1 + " es una llave cerrada, num. linea " + line);
+                IsDouble = false;
+                break;
 
-            //case:
-            //    break;
+            case '/':
+                if (Signal_2 == '/')
+                {
+                    Debug.Log(Signal_1 + "" + Signal_2 + " es un comentario simple, num. linea " + line);
+                    IsDouble = true;
+                }
+                else if (Signal_2 == '*')
+                {
+                    Debug.Log(Signal_1 + "" + Signal_2 + " es un comentario largo, num. linea " + line);
+                    IsDouble = true;
+                }
+                else
+                {
+                    Debug.Log(Signal_1 + " es un operador, num. linea " + line);
+                    IsDouble = false;
+                }
+                break;
 
-            //case:
-            //    break;
+            case '*':
+                if (Signal_2 == '/')
+                {
+                    Debug.Log(Signal_1 + "" + Signal_2 + " es un comentario largo, num. linea " + line);
+                    IsDouble = true;
+                }
+                else
+                {
+                    Debug.Log(Signal_1 + " es un operador, num. linea " + line);
+                    IsDouble = false;
+                }
+                break;
 
             //case:
             //    break;
@@ -180,6 +287,86 @@ public class Lexical_Analyzer : MonoBehaviour
             default: IsDouble = false; Debug.Log(Signal_1 + " soy un simbolo, num. linea " + line);
                 break;
         }
+
         return IsDouble;
     }
+
+
+    #endregion
+
+
+
+    int NumA(int line, string word)
+    {
+        string num = default;
+        int ASCII = default;
+        int ASCII_Next = default;
+        int Plus = default;
+        bool ForceExit = false;
+
+
+        for (int i = 0; i < word.Length; i++)
+        {
+            ASCII = word[i];
+            if (ASCII >= 48 && ASCII <= 57 && i < word.Length)
+            {
+                num = num + word[i];
+            }
+            else
+            {
+                if (i < word.Length-1 && ASCII == 46 && word[i + 1] >= 48 && word[i + 1] <= 57)
+                {
+                    num = num + word[i];
+                    //Debug.Log(num + " es un decimal");
+                }
+                else if (i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 48 && word[i + 1] <= 57
+                    || i < word.Length - 1 && ASCII == 46 && word[i + 1] <= 46 && word[i + 1] >= 32
+                    || i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 65 && word[i + 1] <= 90
+                    || i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 65 && word[i + 1] <= 90
+                    || i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 97 && word[i + 1] <= 122)
+                {
+                    Debug.LogError("No esta bien escrito el numero");
+                    ForceExit = true;
+                    goto Exit;
+                }
+            }
+            
+        }
+
+        for (int j = 0; j < num.Length; j++)
+        {
+            ASCII = num[j];
+            if (j < num.Length-1)
+            {
+                ASCII_Next = num[j + 1];
+            }
+
+            if (ASCII == 46 && ASCII_Next >= 48 && ASCII_Next <= 57 && j <= num.Length)
+            {
+                Debug.Log(num + " es un numero decimal");
+                ForceExit = false;
+                goto Exit;
+            }
+            else if(j == num.Length-1)
+            {
+                Debug.Log(num + " es un numero entero");
+                ForceExit = false;
+                goto Exit;
+            }
+        }
+
+
+        Exit:
+        if (ForceExit)
+        {
+            Plus = num.Length;
+        }
+        else
+        {
+            Plus = num.Length - 1;
+        }
+        return Plus;
+    }
+
+
 }

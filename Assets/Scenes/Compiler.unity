@@ -236,11 +236,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68491ce743aa9043b9725265629948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: 'int num = 1;
+  Text: '//Hola que tal guapo
+
+    /* Hola guapo */
+
+    /*Hola guapo*/
+
+    ++
+
+    int
+    num = 1;
 
     if(num<6){
 
     num++;
+
+
+    15.M
+
+
+    15.2
+
+    88
+
+
+    .62M
+
 
     }'
 --- !u!4 &732671018
