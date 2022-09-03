@@ -319,7 +319,7 @@ public class Lexical_Analyzer : MonoBehaviour
                     num = num + word[i];
                     //Debug.Log(num + " es un decimal");
                 }
-                else if (i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 48 && word[i + 1] <= 57
+                else if(i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 48 && word[i + 1] <= 57
                     || i < word.Length - 1 && ASCII == 46 && word[i + 1] <= 46 && word[i + 1] >= 32
                     || i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 65 && word[i + 1] <= 90
                     || i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 65 && word[i + 1] <= 90
