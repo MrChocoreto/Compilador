@@ -44,7 +44,6 @@ public class Lexical_Analyzer : MonoBehaviour
         {
             // Aqui solo le doy el valor ASCII de cada uno de los caracteres
             ASCII = Text[i];
-
             // Reviso si hay un espacio, un salto de linea o si es el final de
             // la frase
             if (ASCII == 32 || ASCII == 10 || i == Text.Length - 1)
@@ -77,6 +76,7 @@ public class Lexical_Analyzer : MonoBehaviour
 
 
             }
+            
             else
             {
                 // aqui solo añado una letra cada que recorro los caracteres
@@ -258,7 +258,7 @@ public class Lexical_Analyzer : MonoBehaviour
                     IsDouble = false;
                 }
                 break;
-
+                
             case '*':
                 if (Signal_2 == '/')
                 {
@@ -317,7 +317,6 @@ public class Lexical_Analyzer : MonoBehaviour
                 if (i < word.Length-1 && ASCII == 46 && word[i + 1] >= 48 && word[i + 1] <= 57)
                 {
                     num = num + word[i];
-                    //Debug.Log(num + " es un decimal");
                 }
                 else if(i < word.Length - 1 && ASCII == 46 && word[i + 1] >= 48 && word[i + 1] <= 57
                     || i < word.Length - 1 && ASCII == 46 && word[i + 1] <= 46 && word[i + 1] >= 32
