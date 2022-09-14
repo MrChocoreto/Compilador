@@ -2,21 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lexico2 : MonoBehaviour
+public class LexicalAnalizer : MonoBehaviour
 {
+
+    #region Varibales
+
     [SerializeField, TextArea] private string Texto = default;
     private int NumLine = default,i=0;
 
     int ASCII = default;
     string palabra = default;
-    void Start()
+
+
+    #endregion
+
+    
+    #region Inicio_Analisis
+
+    [ContextMenu("Iniciar_Analisis")]
+    void ComenzarAnalisis()
     {
         // Inicializo el numero de linea siempre en 1
         NumLine = 1;
-        ComenzarAnalisis();
-    }
-    void ComenzarAnalisis()
-    {
         for (i = 0; i < Texto.Length; i++)
         {
             //limpio la variable
@@ -31,7 +38,6 @@ public class Lexico2 : MonoBehaviour
                 {
                     // y aqui solo voy aumentando la variable cada que hay un salto de linea
                     NumLine++;
-                    Debug.Log("Salto de Linea");
                 }
             }
             else
@@ -56,6 +62,14 @@ public class Lexico2 : MonoBehaviour
             }
         }
     }
+
+
+    #endregion
+
+
+    #region Analizadores
+
+
     void EsIdentificador()
     {
         int e;
@@ -78,6 +92,7 @@ public class Lexico2 : MonoBehaviour
         i = e;
         Debug.Log("Identificador Encontrado: " + palabra);       
     }  
+    
     void esNumero()
     {
         int e;
@@ -148,6 +163,7 @@ public class Lexico2 : MonoBehaviour
             Debug.Log("Numero Entero Encontrado: " + palabra);
         }
     }
+    
     void Operadores()
     {
         //verifica que operador es si no lo mando a otro metodo
@@ -220,6 +236,7 @@ public class Lexico2 : MonoBehaviour
                 break;
         }
     }
+    
     void Comparadores()
     {
         //Ve que tipo de comparador es si no pasa al siguiente filtro
@@ -307,6 +324,7 @@ public class Lexico2 : MonoBehaviour
                 break;
         }
     }
+    
     void SigosAdicionales()
     {
         //se  busca identificar si es signo valio si no manda error
@@ -338,6 +356,7 @@ public class Lexico2 : MonoBehaviour
                 break;
         }
     }
+    
     void comentarios()
     {
         //Identifica que tipo de comentario es
@@ -405,6 +424,7 @@ public class Lexico2 : MonoBehaviour
         }
         
     }
+    
     void CadenasCaracter()
     {
         palabra += Texto[i];
@@ -479,4 +499,8 @@ public class Lexico2 : MonoBehaviour
 
         }
     }
+
+
+    #endregion
+
 }
