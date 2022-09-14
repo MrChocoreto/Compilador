@@ -69,7 +69,6 @@ public class LexicalAnalizer : MonoBehaviour
 
     #region Analizadores
 
-
     void EsIdentificador()
     {
         int e;
@@ -499,7 +498,6 @@ public class LexicalAnalizer : MonoBehaviour
 
         }
     }
-
 
     #endregion
 
