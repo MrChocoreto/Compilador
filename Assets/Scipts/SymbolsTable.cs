@@ -26,6 +26,7 @@ public class SymbolsTable : MonoBehaviour{
     [SerializeField] GameObject FatherToken;
     [SerializeField] GameObject FatherType;
     [SerializeField] GameObject FatherLine;
+    [SerializeField] RectTransform SymbolsTransform;
 
     [Space(20)]
     [Header("-----DeleteElements-----")]
@@ -37,9 +38,10 @@ public class SymbolsTable : MonoBehaviour{
     #endregion
 
 
+    #region UnityMethods
+
     private void Start()
     {
-        Debug.Log("hola");
         //Prellenado de la Tabla de simbolos
         string[] newLexeme = Lexeme.ToArray();
         string[] newToken = Token.ToArray();
@@ -60,6 +62,10 @@ public class SymbolsTable : MonoBehaviour{
         }
     }
 
+    #endregion
+
+
+    #region SymbolsTable
 
     void Add_new_Lexeme(string NewLexeme, string NewToken, int Num_Line)
     {
@@ -96,6 +102,7 @@ public class SymbolsTable : MonoBehaviour{
         No_Line.Add(Num_Line.ToString());
         AddElement.AddNewElement(Num_Line.ToString(), FatherLine.transform, 30, "No_Line");
 
+        SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y+37);
 
     }
 
@@ -138,18 +145,25 @@ public class SymbolsTable : MonoBehaviour{
         return token;
     }
 
+    #endregion
+
+
+    #region Console
+
+    #endregion
+
 
     [ContextMenu("Clean")]
     void Clean()
     {
-        TL_Lexeme = new List<string>();
-        TL_Token = new List<string>();
+
+        #region Reset_Symbols_Table
+
         GameObject[] newleme = ObjLexeme.ToArray();
         GameObject[] newtoken = ObjToken.ToArray();
         GameObject[] newtype = ObjType.ToArray();
         GameObject[] newline = ObjNo_Line.ToArray();
 
-        #region Reset_Symbols_Table
 
         for (int i = Lexeme.ToArray().Length-1; i > 8; i--)
         {
@@ -167,7 +181,6 @@ public class SymbolsTable : MonoBehaviour{
         }
         
         No_Line = new List<string>();
-        #endregion
 
         for (int i = 0; i < newleme.Length; i++)
         {
@@ -182,8 +195,16 @@ public class SymbolsTable : MonoBehaviour{
         ObjType = new List<GameObject>();
         ObjNo_Line = new List<GameObject>();
 
+        #endregion
+
+
+        #region TokenList
+
+        TL_Lexeme = new List<string>();
+        TL_Token = new List<string>();
+
+        #endregion
+
     }
-
-
 
 }
