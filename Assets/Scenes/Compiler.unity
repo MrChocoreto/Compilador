@@ -772,6 +772,10 @@ MonoBehaviour:
   FatherToken: {fileID: 815512163}
   FatherType: {fileID: 1555855072}
   FatherLine: {fileID: 536666546}
+  ObjLexeme: []
+  ObjToken: []
+  ObjType: []
+  ObjNo_Line: []
 --- !u!4 &520904519
 Transform:
   m_ObjectHideFlags: 0
@@ -1105,10 +1109,10 @@ RectTransform:
   m_Father: {fileID: 937891759}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 406.37, y: -376.60724}
-  m_SizeDelta: {x: 812.74, y: 157.7855}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -549.07245, y: 78.89276}
+  m_SizeDelta: {x: -1098.145, y: 157.7855}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &855490322
 MonoBehaviour:
@@ -1311,7 +1315,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

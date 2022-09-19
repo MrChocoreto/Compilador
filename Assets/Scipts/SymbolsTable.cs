@@ -183,4 +183,7 @@ public class SymbolsTable : MonoBehaviour{
         ObjNo_Line = new List<GameObject>();
 
     }
+
+
+
 }
