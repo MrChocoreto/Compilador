@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class SymbolsTable : MonoBehaviour{
@@ -15,7 +13,7 @@ public class SymbolsTable : MonoBehaviour{
     [SerializeField] List<string> No_Line;
 
     [Space(20)]
-    [Header("-----TokenList-----")]
+    [Header("-----TokensList-----")]
     [SerializeField] List<string> TL_Lexeme;
     [SerializeField] List<string> TL_Token;
     
@@ -27,6 +25,8 @@ public class SymbolsTable : MonoBehaviour{
     [SerializeField] GameObject FatherType;
     [SerializeField] GameObject FatherLine;
     [SerializeField] RectTransform SymbolsTransform;
+    [SerializeField] RectTransform TokensTransform;
+    [SerializeField] RectTransform ConsoleTransform;
 
     [Space(20)]
     [Header("-----DeleteElements-----")]
@@ -65,7 +65,7 @@ public class SymbolsTable : MonoBehaviour{
     #endregion
 
 
-    #region SymbolsTable
+    #region SymbolsTable_&_TokensList
 
     void Add_new_Lexeme(string NewLexeme, string NewToken, int Num_Line)
     {
@@ -82,7 +82,7 @@ public class SymbolsTable : MonoBehaviour{
             AddElement.AddNewElement(NewToken, FatherToken.transform, 30,"Token");
         }
 
-        
+        //Añade los tipos de lexemas, si no es ninguno va a instanciar un vacio
         switch (NewLexeme)
         {
             case "int":
@@ -91,7 +91,7 @@ public class SymbolsTable : MonoBehaviour{
                 break;
             case "float":
                 Type.Add(NewLexeme);
-                AddElement.AddNewElement(NewLexeme, FatherType.transform, 36, "Type");
+                AddElement.AddNewElement(NewLexeme, FatherType.transform, 30, "Type");
                 break;
             default:
                 AddElement.AddNewElement("", FatherType.transform, 30, "Type");
@@ -110,11 +110,10 @@ public class SymbolsTable : MonoBehaviour{
     public void Add_New_Token(string NewLexeme, string NewToken, int Num_Line)
     {
         //Añadido de los elementos a la lista de Tokens
+        //y revision de los tokes
         TL_Lexeme.Add(NewLexeme);
-        TL_Token.Add(NewToken);
-
-        //Revision de los tokes
         NewToken = Update_Tokens(NewLexeme);
+
         //Añadido de los elementos a la tabla de simbolos
         Add_new_Lexeme(NewLexeme,NewToken,Num_Line);
     }
@@ -123,21 +122,17 @@ public class SymbolsTable : MonoBehaviour{
     string Update_Tokens(string lexeme)
     {
         string token = default;
-        string[] newTL_Token = TL_Token.ToArray();
         switch (lexeme)
         {
             case "int":
-                TL_Token.RemoveAt(newTL_Token.Length - 1);
                 TL_Token.Add("Tipo");
                 token = "Tipo";
                 break;
             case "float":
-                TL_Token.RemoveAt(newTL_Token.Length - 1);
                 TL_Token.Add("Tipo");
                 token = "Tipo";
                 break;
             default:
-                TL_Token.RemoveAt(newTL_Token.Length - 1);
                 TL_Token.Add("Identificador");
                 token = "Identificador";
                 break;
