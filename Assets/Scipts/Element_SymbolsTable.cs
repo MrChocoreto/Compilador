@@ -24,6 +24,12 @@ public class Element_SymbolsTable : MonoBehaviour{
             case "No_Line":
                 SymbolsTable.ObjNo_Line.Add(Instantiate(this.gameObject, Father));
                 break;
+            case "Value":
+                SymbolsTable.ObjNo_Value.Add(Instantiate(this.gameObject, Father));
+                break;
+            case "Desplacement":
+                SymbolsTable.ObjNo_Desplacement.Add(Instantiate(this.gameObject, Father));
+                break;
             default:
                  Instantiate(this.gameObject, Father);
                 break;

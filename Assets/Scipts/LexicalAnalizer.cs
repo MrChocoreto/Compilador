@@ -5,16 +5,17 @@ public class LexicalAnalizer : MonoBehaviour
 
     #region Varibales
     public SymbolsTable SymbolsTable;
+    public Console_Errors console_Errors;
     [SerializeField, TextArea] private string Texto = default;
     private int NumLine = default,i=0;
 
     int ASCII = default;
     string palabra = default;
-
+    string DebugMessage = default;
 
     #endregion
 
-    
+
     #region Inicio_Analisis
 
     [ContextMenu("Iniciar_Analisis")]
@@ -48,14 +49,14 @@ public class LexicalAnalizer : MonoBehaviour
                 // veo si es numero
                 else if (ASCII >= 48 && ASCII <= 57)
                 {
-                    esNumero();
+                    esNumero(NumLine);
                 }else if (ASCII==34 || ASCII == 39)
                 {
                     CadenasCaracter();
                 }
                 else
                 {
-                    Operadores();
+                    Operadores(NumLine);
                 }
             }
         }
@@ -91,8 +92,9 @@ public class LexicalAnalizer : MonoBehaviour
         SymbolsTable.Add_New_Token(palabra,"Identificador", num_line);
     }  
     
-    void esNumero()
+    void esNumero(int num_line)
     {
+        DebugMessage = "ERROR Numero decimal Incompleto: " + palabra;
         int e;
         //forma el numero entero
         for (e = i; e < Texto.Length; e++)
@@ -142,14 +144,16 @@ public class LexicalAnalizer : MonoBehaviour
                 {
                     //se da el avance de e a i en los caracteres
                     i = e;
-                    Debug.Log("ERROR Numero decimal Incompleto: " + palabra+" Linea "+NumLine);
+                    //tira el error a consola
+                    console_Errors.DebugConsole(num_line, DebugMessage);
                 }
             }
             else
             {
                 //se da el avance de e a i en los caracteres
                 i = e;
-                Debug.Log("ERROR Numero decimal Incompleto: " + palabra + " Linea " + NumLine);
+                //tira el error a consola
+                console_Errors.DebugConsole(num_line, DebugMessage);
             }
 
         }
@@ -162,7 +166,7 @@ public class LexicalAnalizer : MonoBehaviour
         }
     }
     
-    void Operadores()
+    void Operadores(int num_line)
     {
         //verifica que operador es si no lo mando a otro metodo
         switch (ASCII)
@@ -230,12 +234,12 @@ public class LexicalAnalizer : MonoBehaviour
                 }
                 break;
             default:
-                Comparadores();
+                Comparadores(num_line);
                 break;
         }
     }
     
-    void Comparadores()
+    void Comparadores(int num_line)
     {
         //Ve que tipo de comparador es si no pasa al siguiente filtro
         switch (ASCII)
@@ -318,12 +322,12 @@ public class LexicalAnalizer : MonoBehaviour
                 }
                 break;
             default:
-                SigosAdicionales();
+                SigosAdicionales(num_line);
                 break;
         }
     }
     
-    void SigosAdicionales()
+    void SigosAdicionales(int num_line)
     {
         //se  busca identificar si es signo valio si no manda error
         switch (ASCII)
@@ -350,7 +354,8 @@ public class LexicalAnalizer : MonoBehaviour
                 Debug.Log("Punto y coma: " + Texto[i]);
                 break;
             default:
-                Debug.LogError("ERROR-Sinbolo no reconocido o no valido: " + Texto[i]);
+                DebugMessage = "ERROR-Sinbolo no reconocido o no valido: " + Texto[i];
+                console_Errors.DebugConsole(num_line, DebugMessage);
                 break;
         }
     }

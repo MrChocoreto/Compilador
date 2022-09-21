@@ -30,7 +30,6 @@ public class SymbolsTable : MonoBehaviour
     [SerializeField] GameObject FatherDesplacement;
     [SerializeField] RectTransform SymbolsTransform;
     [SerializeField] RectTransform TokensTransform;
-    [SerializeField] RectTransform ConsoleTransform;
 
     [Space(20)]
     [Header("-----DeleteElements-----")]
@@ -46,7 +45,6 @@ public class SymbolsTable : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("hola");
         //Prellenado de la Tabla de simbolos
         string[] newLexeme = Lexeme.ToArray();
         string[] newToken = Token.ToArray();
@@ -73,6 +71,10 @@ public class SymbolsTable : MonoBehaviour
     void Add_new_Lexeme(string NewLexeme, string NewToken, int Num_Line)
     {
         //llenado de la Tabla de simbolos
+
+        SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y + 74);
+
+
         Lexeme.Add(NewLexeme);
         AddElement.AddNewElement(NewLexeme, FatherLexeme.transform, 30, "Lexeme");
         Token.Add(NewToken);
@@ -100,7 +102,6 @@ public class SymbolsTable : MonoBehaviour
                 AddElement.AddNewElement("", FatherType.transform, 30, "Type");
                 break;
         }
-
 
         No_Line.Add(Num_Line.ToString());
         AddElement.AddNewElement(Num_Line.ToString(), FatherLine.transform, 30, "No_Line");
@@ -149,6 +150,8 @@ public class SymbolsTable : MonoBehaviour
         return token;
     }
 
+   
+
 
     [ContextMenu("Clean")]
     void Clean()
@@ -190,7 +193,7 @@ public class SymbolsTable : MonoBehaviour
             Destroy(newline[i]);
             Destroy(newvalue[i]);
             Destroy(newdesplacement[i]);
-            SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y - 37);
+            SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y - 74);
 
         }
 
