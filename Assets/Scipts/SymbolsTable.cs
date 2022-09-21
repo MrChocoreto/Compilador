@@ -13,6 +13,8 @@ public class SymbolsTable : MonoBehaviour{
     [SerializeField] List<string> Token;
     [SerializeField] List<string> Type;
     [SerializeField] List<string> No_Line;
+    [SerializeField] List<string> Value;
+    [SerializeField] List<string> Desplacement;
 
     [Space(20)]
     [Header("-----TokenList-----")]
@@ -26,6 +28,14 @@ public class SymbolsTable : MonoBehaviour{
     [SerializeField] GameObject FatherToken;
     [SerializeField] GameObject FatherType;
     [SerializeField] GameObject FatherLine;
+<<<<<<< Updated upstream
+=======
+    [SerializeField] GameObject FatherValue;
+    [SerializeField] GameObject FatherDesplacement;
+    [SerializeField] RectTransform SymbolsTransform;
+    [SerializeField] RectTransform TokensTransform;
+    [SerializeField] RectTransform ConsoleTransform;
+>>>>>>> Stashed changes
 
     [Space(20)]
     [Header("-----DeleteElements-----")]
@@ -33,6 +43,8 @@ public class SymbolsTable : MonoBehaviour{
     [SerializeField] public List<GameObject> ObjToken;
     [SerializeField] public List<GameObject> ObjType;
     [SerializeField] public List<GameObject> ObjNo_Line;
+    [SerializeField] public List<GameObject> ObjNo_Value;
+    [SerializeField] public List<GameObject> ObjNo_Desplacement;
 
     #endregion
 
@@ -56,6 +68,8 @@ public class SymbolsTable : MonoBehaviour{
             { 
                 AddElement.AddNewElement(newType[i], FatherType.transform, 30, "");
             }
+            AddElement.AddNewElement("", FatherValue.transform, 30, "");
+            AddElement.AddNewElement("", FatherDesplacement.transform, 30, "");
             AddElement.AddNewElement("", FatherLine.transform, 30, "");
         }
     }
@@ -95,6 +109,8 @@ public class SymbolsTable : MonoBehaviour{
 
         No_Line.Add(Num_Line.ToString());
         AddElement.AddNewElement(Num_Line.ToString(), FatherLine.transform, 30, "No_Line");
+        AddElement.AddNewElement("", FatherValue.transform, 30, "Value");
+        AddElement.AddNewElement("", FatherDesplacement.transform, 30, "Desplacement");
 
 
     }
@@ -148,6 +164,8 @@ public class SymbolsTable : MonoBehaviour{
         GameObject[] newtoken = ObjToken.ToArray();
         GameObject[] newtype = ObjType.ToArray();
         GameObject[] newline = ObjNo_Line.ToArray();
+        GameObject[] newvalue = ObjNo_Value.ToArray();
+        GameObject[] newdesplacement = ObjNo_Desplacement.ToArray();
 
         #region Reset_Symbols_Table
 
@@ -175,12 +193,21 @@ public class SymbolsTable : MonoBehaviour{
             Destroy(newtoken[i]);
             Destroy(newtype[i]);
             Destroy(newline[i]);
+            Destroy(newvalue[i]);
+            Destroy(newdesplacement[i]);
+            SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y - 37);
+
         }
 
         ObjLexeme = new List<GameObject>();
         ObjToken = new List<GameObject>();
         ObjType = new List<GameObject>();
         ObjNo_Line = new List<GameObject>();
+        ObjNo_Value = new List<GameObject>();
+        ObjNo_Desplacement = new List<GameObject>();
+
+
+        
 
     }
 }
