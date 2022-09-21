@@ -1,10 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LexicalAnalizer : MonoBehaviour
 {
 
     #region Varibales
-    public SymbolsTable SymbolsTable;
+
     [SerializeField, TextArea] private string Texto = default;
     private int NumLine = default,i=0;
 
@@ -43,7 +45,7 @@ public class LexicalAnalizer : MonoBehaviour
                 //veo si es un identificador
                 if (ASCII >= 97 && ASCII <= 122 || ASCII>=65 && ASCII<=90 || ASCII == 95)
                 {
-                    EsIdentificador(NumLine);
+                    EsIdentificador();
                 }
                 // veo si es numero
                 else if (ASCII >= 48 && ASCII <= 57)
@@ -67,7 +69,7 @@ public class LexicalAnalizer : MonoBehaviour
 
     #region Analizadores
 
-    void EsIdentificador(int num_line)
+    void EsIdentificador()
     {
         int e;
         //conformo el identificador
@@ -87,8 +89,7 @@ public class LexicalAnalizer : MonoBehaviour
         e--;
         //se da el avance e a i en los caracteres
         i = e;
-        //Debug.Log("Identificador Encontrado: " + palabra);
-        SymbolsTable.Add_New_Token(palabra,"Identificador", num_line);
+        Debug.Log("Identificador Encontrado: " + palabra);       
     }  
     
     void esNumero()

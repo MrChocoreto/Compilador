@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class SymbolsTable : MonoBehaviour{
@@ -28,14 +25,11 @@ public class SymbolsTable : MonoBehaviour{
     [SerializeField] GameObject FatherToken;
     [SerializeField] GameObject FatherType;
     [SerializeField] GameObject FatherLine;
-<<<<<<< Updated upstream
-=======
     [SerializeField] GameObject FatherValue;
     [SerializeField] GameObject FatherDesplacement;
     [SerializeField] RectTransform SymbolsTransform;
     [SerializeField] RectTransform TokensTransform;
     [SerializeField] RectTransform ConsoleTransform;
->>>>>>> Stashed changes
 
     [Space(20)]
     [Header("-----DeleteElements-----")]
