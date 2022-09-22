@@ -328,6 +328,47 @@ public class LexicalAnalizer : MonoBehaviour
                     Debug.Log("Mayor que: " + Texto[i]);
                 }
                 break;
+            case 38:
+                if (i != Texto.Length - 1)
+                {
+                    ASCII = Texto[i + 1];
+                    if (ASCII == 38)
+                    {
+                        i++;
+                        palabra = ""+ Texto[i - 1] + Texto[i];
+                        //es &&(y)
+                    }
+                    else
+                    {
+                        //error falta un & 
+                    }
+                }
+                else
+                {
+                    //error falta un & 
+                }
+                break;
+
+            case 124:
+                if (i != Texto.Length - 1)
+                {
+                    ASCII = Texto[i + 1];
+                    if (ASCII == 124)
+                    {
+                        i++;
+                        palabra = "" + Texto[i - 1] + Texto[i];
+                        //es ||(o)
+                    }
+                    else
+                    {
+                        //error falta un |
+                    }
+                }
+                else
+                {
+                    //error falta un |
+                }
+                break;
             default:
                 SigosAdicionales(num_line);
                 break;
