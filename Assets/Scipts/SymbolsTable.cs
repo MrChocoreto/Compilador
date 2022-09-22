@@ -55,7 +55,6 @@ public class SymbolsTable : MonoBehaviour
         string[] newType = Type.ToArray();
         for (int i = 0; i < newLexeme.Length; i++)
         {
-            Debug.Log("Hola");
             AddElement.AddNewElement(newLexeme[i], FatherLexeme.transform, 30, "");
             AddElement.AddNewElement(newToken[i], FatherToken.transform, 30, "");
             if (newType[i] == "reservada")
@@ -77,7 +76,7 @@ public class SymbolsTable : MonoBehaviour
     {
         //llenado de la Tabla de simbolos
 
-        SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y + 74);
+        SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y + 57);
 
 
         Lexeme.Add(NewLexeme);
@@ -120,21 +119,23 @@ public class SymbolsTable : MonoBehaviour
     public void Add_New_Token(string NewLexeme, string NewToken, int Num_Line)
     {
         //Añadido de los elementos a la lista de Tokens
+        TokensTransform.sizeDelta = new Vector2(TokensTransform.sizeDelta.x, TokensTransform.sizeDelta.y + 37);
         TL_Lexeme.Add(NewLexeme);
         AddElement.AddNewElement(NewLexeme, FatherTL_Lexeme.transform, 30, "TL_Lexeme");
 
         //Revision de los tokes
         TL_Token.Add(NewToken);
-        NewToken = Update_Tokens(NewLexeme);
+        NewToken = Update_Tokens(NewLexeme, NewToken);
         AddElement.AddNewElement(NewToken, FatherTL_Token.transform, 24, "TL_Token");
-        TokensTransform.sizeDelta = new Vector2(TokensTransform.sizeDelta.x, TokensTransform.sizeDelta.y + 37);
-
-        //Añadido de los elementos a la tabla de simbolos
-        Add_new_Lexeme(NewLexeme, NewToken, Num_Line);
+        if (NewToken == "Identificador")
+        {
+            //Añadido de los elementos a la tabla de simbolos
+            Add_new_Lexeme(NewLexeme, NewToken, Num_Line);
+        }
     }
 
 
-    string Update_Tokens(string lexeme)
+    string Update_Tokens(string lexeme,string lasttoken)
     {
         string token = default;
         string[] newTL_Token = TL_Token.ToArray();
@@ -151,9 +152,7 @@ public class SymbolsTable : MonoBehaviour
                 token = "Tipo";
                 break;
             default:
-                TL_Token.RemoveAt(newTL_Token.Length - 1);
-                TL_Token.Add("Identificador");
-                token = "Identificador";
+                token = lasttoken;
                 break;
         }
         return token;

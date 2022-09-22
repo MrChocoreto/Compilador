@@ -30,7 +30,7 @@ public class LexicalAnalizer : MonoBehaviour
         ClearAnalizers();
         // Inicializo el numero de linea siempre en 1
         NumLine = 1;
-        for (i = 0; i < Texto.Length; i++)
+        for (i = 0; i < Texto.Length-1; i++)
         {
             //limpio la variable
             palabra = default;
@@ -145,7 +145,7 @@ public class LexicalAnalizer : MonoBehaviour
                     e--;
                     //se da el avance de e a i en los caracteres
                     i = e;
-                    Debug.Log("Numero decimal Encontrado: " + palabra);
+                    SymbolsTable.Add_New_Token(palabra, "Tipo", num_line);
                 }
                 else
                 {
@@ -169,7 +169,7 @@ public class LexicalAnalizer : MonoBehaviour
             e--;
             //se da el avance e a i en los caracteres
             i = e;
-            Debug.Log("Numero Entero Encontrado: " + palabra);
+            SymbolsTable.Add_New_Token(palabra, "Tipo", num_line);
         }
     }
     
@@ -179,7 +179,8 @@ public class LexicalAnalizer : MonoBehaviour
         switch (ASCII)
         {
             case 42:
-                Debug.Log("Multiplicacion: "+Texto[i]);
+                SymbolsTable.Add_New_Token(""+Texto[i], "Operador", num_line);
+                //Debug.Log("Multiplicacion: "+Texto[i]);
                 break;
             case 43:
                 //verifica si es el ultimo caracter y si es un incremento
@@ -189,16 +190,19 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII==43)
                     {
                         i++;
+
                         Debug.Log("Incremento: " + Texto[i-1]+Texto[i]);
                     }
                     else
                     {
-                        Debug.Log("Suma: " + Texto[i]);
+                        //Debug.Log("Suma: " + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
                     }
                 }
                 else
                 {
-                    Debug.Log("Suma: " + Texto[i]);
+                    //Debug.Log("Suma: " + Texto[i]);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
                 }
                 break;
             case 45:
@@ -212,12 +216,14 @@ public class LexicalAnalizer : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Resta: " + Texto[i]);
+                        //Debug.Log("Resta: " + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
                     }
                 }
                 else
                 {
-                    Debug.Log("Resta: " + Texto[i]);
+                    //Debug.Log("Resta: " + Texto[i]);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
                 }
                 break;
             case 47:
@@ -232,12 +238,14 @@ public class LexicalAnalizer : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Divicion: " + Texto[i]);
+                        //Debug.Log("Divicion: " + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
                     }
                 }
                 else
                 {
-                    Debug.Log("Divicion: " + Texto[i]);
+                    //Debug.Log("Divicion: " + Texto[i]);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
                 }
                 break;
             default:
@@ -259,16 +267,20 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 61)
                     {
                         i++;
-                        Debug.Log("Comparacion: " + Texto[i - 1] + Texto[i]);
+                        //es un ==
+                        SymbolsTable.Add_New_Token("" + Texto[i - 1] +""+ Texto[i], "Comparador", num_line);
+                        //Debug.Log("Comparacion: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        Debug.Log("Asignacion: " + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Asignacion", num_line);
+                        //Debug.Log("Asignacion: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    Debug.Log("Asignacion: " + Texto[i]);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Asignacion", num_line);
+                    //Debug.Log("Asignacion: " + Texto[i]);
                 }
                 break;
             case 33:
@@ -278,16 +290,19 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 33)
                     {
                         i++;
-                        Debug.Log("Diferencia: " + Texto[i - 1] + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Diferente_de", num_line);
+                        //Debug.Log("Diferencia: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        Debug.Log("Negacion: " + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Negacion", num_line);
+                        //Debug.Log("Negacion: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    Debug.Log("Negacion: " + Texto[i]);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Negacion", num_line);
+                    //Debug.Log("Negacion: " + Texto[i]);
                 }
                 break;
             case 60:
@@ -297,16 +312,19 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 61)
                     {
                         i++;
-                        Debug.Log("Menor o Igual que: " + Texto[i - 1] + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Menor_Igual", num_line);
+                        //Debug.Log("Menor o Igual que: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        Debug.Log("Menor que: " + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Menor_que", num_line);
+                        //Debug.Log("Menor que: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    Debug.Log("Menor que: " + Texto[i]);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Menor_que", num_line);
+                    //Debug.Log("Menor que: " + Texto[i]);
                 }
                 break;
             case 62:
@@ -320,12 +338,14 @@ public class LexicalAnalizer : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Mayor que: " + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Mayor_que", num_line);
+                        //Debug.Log("Mayor que: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    Debug.Log("Mayor que: " + Texto[i]);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Mayor_que", num_line);
+                    //Debug.Log("Mayor que: " + Texto[i]);
                 }
                 break;
             case 38:
@@ -379,7 +399,7 @@ public class LexicalAnalizer : MonoBehaviour
     {
 
         //int hola = Texto[i];
-        DebugMessage = "ERROR-Sinbolo no reconocido o no valido: " + Texto[i];
+        DebugMessage = "ERROR-Sinbolo no reconocido o no valido: " + Texto[i] + Texto[i-1];
         //se  busca identificar si es signo valio si no manda error
         switch (ASCII)
         {
