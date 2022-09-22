@@ -1,9 +1,10 @@
 using UnityEngine;
-
+using TMPro;
 public class LexicalAnalizer : MonoBehaviour
 {
 
     #region Varibales
+    [SerializeField] TextMeshProUGUI InputField;
     public SymbolsTable SymbolsTable;
     public Console_Errors console_Errors;
     [SerializeField, TextArea] private string Texto = default;
@@ -15,12 +16,18 @@ public class LexicalAnalizer : MonoBehaviour
 
     #endregion
 
+    private void FixedUpdate()
+    {
+        Texto = InputField.text;
+    }
 
     #region Inicio_Analisis
 
     [ContextMenu("Iniciar_Analisis")]
-    void ComenzarAnalisis()
+    public void Analize()
     {
+        //limpio las listas para realizar un nuevo analisis
+        ClearAnalizers();
         // Inicializo el numero de linea siempre en 1
         NumLine = 1;
         for (i = 0; i < Texto.Length; i++)
@@ -329,6 +336,9 @@ public class LexicalAnalizer : MonoBehaviour
     
     void SigosAdicionales(int num_line)
     {
+
+        //int hola = Texto[i];
+        DebugMessage = "ERROR-Sinbolo no reconocido o no valido: " + Texto[i];
         //se  busca identificar si es signo valio si no manda error
         switch (ASCII)
         {
@@ -354,7 +364,6 @@ public class LexicalAnalizer : MonoBehaviour
                 Debug.Log("Punto y coma: " + Texto[i]);
                 break;
             default:
-                DebugMessage = "ERROR-Sinbolo no reconocido o no valido: " + Texto[i];
                 console_Errors.DebugConsole(num_line, DebugMessage);
                 break;
         }
@@ -501,6 +510,17 @@ public class LexicalAnalizer : MonoBehaviour
             }
 
         }
+    }
+
+    public void ClearAnalizers()
+    {
+        SymbolsTable.Clean();
+        console_Errors.Console_Clear();
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 
     #endregion

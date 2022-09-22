@@ -30,8 +30,14 @@ public class Element_SymbolsTable : MonoBehaviour{
             case "Desplacement":
                 SymbolsTable.ObjNo_Desplacement.Add(Instantiate(this.gameObject, Father));
                 break;
+            case "TL_Lexeme":
+                SymbolsTable.ObjTL_Lexeme.Add(Instantiate(this.gameObject, Father));
+                break;
+            case "TL_Token":
+                SymbolsTable.ObjTL_Token.Add(Instantiate(this.gameObject, Father));
+                break;
             default:
-                 Instantiate(this.gameObject, Father);
+                Instantiate(this.gameObject, Father);
                 break;
         }
     }

@@ -27,6 +27,8 @@ public class SymbolsTable : MonoBehaviour
     [SerializeField] GameObject FatherType;
     [SerializeField] GameObject FatherLine;
     [SerializeField] GameObject FatherValue;
+    [SerializeField] GameObject FatherTL_Token;
+    [SerializeField] GameObject FatherTL_Lexeme;
     [SerializeField] GameObject FatherDesplacement;
     [SerializeField] RectTransform SymbolsTransform;
     [SerializeField] RectTransform TokensTransform;
@@ -39,11 +41,13 @@ public class SymbolsTable : MonoBehaviour
     [SerializeField] public List<GameObject> ObjNo_Line;
     [SerializeField] public List<GameObject> ObjNo_Value;
     [SerializeField] public List<GameObject> ObjNo_Desplacement;
+    [SerializeField] public List<GameObject> ObjTL_Lexeme;
+    [SerializeField] public List<GameObject> ObjTL_Token;
 
     #endregion
 
 
-    private void Start()
+    private void Awake()
     {
         //Prellenado de la Tabla de simbolos
         string[] newLexeme = Lexeme.ToArray();
@@ -51,6 +55,7 @@ public class SymbolsTable : MonoBehaviour
         string[] newType = Type.ToArray();
         for (int i = 0; i < newLexeme.Length; i++)
         {
+            Debug.Log("Hola");
             AddElement.AddNewElement(newLexeme[i], FatherLexeme.transform, 30, "");
             AddElement.AddNewElement(newToken[i], FatherToken.transform, 30, "");
             if (newType[i] == "reservada")
@@ -116,10 +121,14 @@ public class SymbolsTable : MonoBehaviour
     {
         //Añadido de los elementos a la lista de Tokens
         TL_Lexeme.Add(NewLexeme);
-        TL_Token.Add(NewToken);
+        AddElement.AddNewElement(NewLexeme, FatherTL_Lexeme.transform, 30, "TL_Lexeme");
 
         //Revision de los tokes
+        TL_Token.Add(NewToken);
         NewToken = Update_Tokens(NewLexeme);
+        AddElement.AddNewElement(NewToken, FatherTL_Token.transform, 24, "TL_Token");
+        TokensTransform.sizeDelta = new Vector2(TokensTransform.sizeDelta.x, TokensTransform.sizeDelta.y + 37);
+
         //Añadido de los elementos a la tabla de simbolos
         Add_new_Lexeme(NewLexeme, NewToken, Num_Line);
     }
@@ -154,7 +163,7 @@ public class SymbolsTable : MonoBehaviour
 
 
     [ContextMenu("Clean")]
-    void Clean()
+    public void Clean()
     {
         TL_Lexeme = new List<string>();
         TL_Token = new List<string>();
@@ -163,6 +172,8 @@ public class SymbolsTable : MonoBehaviour
         GameObject[] newtype = ObjType.ToArray();
         GameObject[] newline = ObjNo_Line.ToArray();
         GameObject[] newvalue = ObjNo_Value.ToArray();
+        GameObject[] newtl_lexeme = ObjTL_Lexeme.ToArray();
+        GameObject[] newvtl_token = ObjTL_Token.ToArray();
         GameObject[] newdesplacement = ObjNo_Desplacement.ToArray();
 
         #region Reset_Symbols_Table
@@ -193,7 +204,10 @@ public class SymbolsTable : MonoBehaviour
             Destroy(newline[i]);
             Destroy(newvalue[i]);
             Destroy(newdesplacement[i]);
+            Destroy(newtl_lexeme[i]);
+            Destroy(newvtl_token[i]);
             SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y - 74);
+            TokensTransform.sizeDelta = new Vector2(TokensTransform.sizeDelta.x, TokensTransform.sizeDelta.y - 37);
 
         }
 
@@ -203,6 +217,8 @@ public class SymbolsTable : MonoBehaviour
         ObjNo_Line = new List<GameObject>();
         ObjNo_Value = new List<GameObject>();
         ObjNo_Desplacement = new List<GameObject>();
+        ObjTL_Token = new List<GameObject>();
+        ObjTL_Lexeme = new List<GameObject>();
 
 
 
