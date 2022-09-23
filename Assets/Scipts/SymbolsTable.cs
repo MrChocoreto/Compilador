@@ -82,30 +82,79 @@ public class SymbolsTable : MonoBehaviour
         Lexeme.Add(NewLexeme);
         AddElement.AddNewElement(NewLexeme, FatherLexeme.transform, 30, "Lexeme");
         Token.Add(NewToken);
-        if (NewToken == "Identificador")
-        {
-            AddElement.AddNewElement(NewToken, FatherToken.transform, 24, "Token");
-        }
-        else
-        {
-            AddElement.AddNewElement(NewToken, FatherToken.transform, 30, "Token");
-        }
 
+        switch (NewToken)
+        {
+            case "Identificador":
+                AddElement.AddNewElement(NewToken, FatherToken.transform, 24, "Token");
+                break;
+            case "Tipo":
+                AddElement.AddNewElement(NewToken, FatherToken.transform, 24, "Token");
+                break;
+            case "FOR":
+                AddElement.AddNewElement(NewToken, FatherToken.transform, 24, "Token");
+                break;
+            case "WHILE":
+                AddElement.AddNewElement(NewToken, FatherToken.transform, 24, "Token");
+                break;
+            case "IF":
+                AddElement.AddNewElement(NewToken, FatherToken.transform, 24, "Token");
+                break;
+            case "DO":
+                AddElement.AddNewElement(NewToken, FatherToken.transform, 24, "Token");
+                break;
+            case "ELSE":
+                AddElement.AddNewElement(NewToken, FatherToken.transform, 24, "Token");
+                break;
+            default:
+                AddElement.AddNewElement(NewToken, FatherToken.transform, 30, "Token");
+                break;
+        }
 
         switch (NewLexeme)
         {
             case "int":
-                Type.Add(NewLexeme);
-                AddElement.AddNewElement(NewLexeme, FatherType.transform, 30, "Type");
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
                 break;
             case "float":
-                Type.Add(NewLexeme);
-                AddElement.AddNewElement(NewLexeme, FatherType.transform, 36, "Type");
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
+                break;
+
+            case "char":
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
+                break;
+            case "string":
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
+                break;
+            case "for":
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
+                break;
+            case "while":
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
+                break;
+            case "if":
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
+                break;
+            case "do":
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
+                break;
+            case "else":
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
                 break;
             default:
                 AddElement.AddNewElement("", FatherType.transform, 30, "Type");
                 break;
         }
+
 
         No_Line.Add(Num_Line.ToString());
         AddElement.AddNewElement(Num_Line.ToString(), FatherLine.transform, 30, "No_Line");
@@ -125,17 +174,16 @@ public class SymbolsTable : MonoBehaviour
 
         //Revision de los tokes
         TL_Token.Add(NewToken);
-        NewToken = Update_Tokens(NewLexeme, NewToken);
-        AddElement.AddNewElement(NewToken, FatherTL_Token.transform, 24, "TL_Token");
-        if (NewToken == "Identificador")
-        {
-            //Añadido de los elementos a la tabla de simbolos
-            Add_new_Lexeme(NewLexeme, NewToken, Num_Line);
-        }
+        NewToken = Update_Tokens(NewLexeme, NewToken, Num_Line);
+        //if (NewToken== "Identificador")
+        //{
+        //    Add_new_Lexeme(NewLexeme, NewToken, Num_Line);
+        //}
+
     }
 
 
-    string Update_Tokens(string lexeme,string lasttoken)
+    string Update_Tokens(string lexeme,string lasttoken, int line)
     {
         string token = default;
         string[] newTL_Token = TL_Token.ToArray();
@@ -145,14 +193,75 @@ public class SymbolsTable : MonoBehaviour
                 TL_Token.RemoveAt(newTL_Token.Length - 1);
                 TL_Token.Add("Tipo");
                 token = "Tipo";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
                 break;
             case "float":
                 TL_Token.RemoveAt(newTL_Token.Length - 1);
                 TL_Token.Add("Tipo");
                 token = "Tipo";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
+                break;
+            case "char":
+                TL_Token.RemoveAt(newTL_Token.Length - 1);
+                TL_Token.Add("Tipo");
+                token = "Tipo";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
+                break;
+            case "string":
+                TL_Token.RemoveAt(newTL_Token.Length - 1);
+                TL_Token.Add("Tipo");
+                token = "Tipo";
+                Add_new_Lexeme(lexeme, token, line);
+                break;
+            case "for":
+                TL_Token.RemoveAt(newTL_Token.Length - 1);
+                TL_Token.Add("FOR");
+                token = "FOR";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
+                break;
+            case "while":
+                TL_Token.RemoveAt(newTL_Token.Length - 1);
+                TL_Token.Add("WHILE");
+                token = "WHILE";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
+                break;
+            case "if":
+                TL_Token.RemoveAt(newTL_Token.Length - 1);
+                TL_Token.Add("IF");
+                token = "IF";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
+                break;
+            case "do":
+                TL_Token.RemoveAt(newTL_Token.Length - 1);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
+                TL_Token.Add("DO");
+                token = "DO";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
+                break;
+            case "else":
+                TL_Token.RemoveAt(newTL_Token.Length - 1);
+                TL_Token.Add("ELSE");
+                token = "ELSE";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
                 break;
             default:
-                token = lasttoken;
+                if (lasttoken == "Identificador")
+                {
+                    Add_new_Lexeme(lexeme, lasttoken, line);
+                    AddElement.AddNewElement(lasttoken, FatherTL_Token.transform, 24, "TL_Token");
+                }
+                else
+                {
+                    AddElement.AddNewElement(lasttoken, FatherTL_Token.transform, 24, "TL_Token");
+                }
                 break;
         }
         return token;
