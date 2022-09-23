@@ -279,8 +279,6 @@ public class SymbolsTable : MonoBehaviour
     }
 
    
-
-
     [ContextMenu("Clean")]
     public void Clean()
     {
@@ -345,4 +343,5 @@ public class SymbolsTable : MonoBehaviour
         ObjTL_Lexeme = new List<GameObject>();
 
     }
+
 }
