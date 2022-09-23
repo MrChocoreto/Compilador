@@ -203,9 +203,14 @@ public class SymbolsTable : MonoBehaviour
             Destroy(newline[i]);
             Destroy(newvalue[i]);
             Destroy(newdesplacement[i]);
-            Destroy(newtl_lexeme[i]);
-            Destroy(newvtl_token[i]);
-            SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y - 74);
+            SymbolsTransform.sizeDelta = new Vector2(SymbolsTransform.sizeDelta.x, SymbolsTransform.sizeDelta.y - 57);
+
+        }
+
+        for (int j = 0; j < newtl_lexeme.Length; j++)
+        {
+            Destroy(newtl_lexeme[j]);
+            Destroy(newvtl_token[j]);
             TokensTransform.sizeDelta = new Vector2(TokensTransform.sizeDelta.x, TokensTransform.sizeDelta.y - 37);
 
         }
@@ -218,9 +223,6 @@ public class SymbolsTable : MonoBehaviour
         ObjNo_Desplacement = new List<GameObject>();
         ObjTL_Token = new List<GameObject>();
         ObjTL_Lexeme = new List<GameObject>();
-
-
-
 
     }
 }

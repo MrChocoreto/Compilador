@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+
 public class LexicalAnalizer : MonoBehaviour
 {
 
@@ -145,7 +147,7 @@ public class LexicalAnalizer : MonoBehaviour
                     e--;
                     //se da el avance de e a i en los caracteres
                     i = e;
-                    SymbolsTable.Add_New_Token(palabra, "Tipo", num_line);
+                    SymbolsTable.Add_New_Token(palabra, "Decimal", num_line);
                 }
                 else
                 {
@@ -169,7 +171,7 @@ public class LexicalAnalizer : MonoBehaviour
             e--;
             //se da el avance e a i en los caracteres
             i = e;
-            SymbolsTable.Add_New_Token(palabra, "Tipo", num_line);
+            SymbolsTable.Add_New_Token(palabra, "Entero", num_line);
         }
     }
     
@@ -190,19 +192,19 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII==43)
                     {
                         i++;
-
-                        Debug.Log("Incremento: " + Texto[i-1]+Texto[i]);
+                        SymbolsTable.Add_New_Token(Texto[i - 1] + "" + Texto[i], "Incremento", num_line);
+                        //Debug.Log("Incremento: " + Texto[i-1]+Texto[i]);
                     }
                     else
                     {
                         //Debug.Log("Suma: " + Texto[i]);
-                        SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Suma", num_line);
                     }
                 }
                 else
                 {
                     //Debug.Log("Suma: " + Texto[i]);
-                    SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Suma", num_line);
                 }
                 break;
             case 45:
@@ -212,18 +214,19 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 45)
                     {
                         i++;
-                        Debug.Log("Decremento: " + Texto[i - 1] + Texto[i]);
+                        SymbolsTable.Add_New_Token(Texto[i - 1] + "" + Texto[i], "Decremento", num_line);
+                        //Debug.Log("Decremento: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
                         //Debug.Log("Resta: " + Texto[i]);
-                        SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Resta", num_line);
                     }
                 }
                 else
                 {
                     //Debug.Log("Resta: " + Texto[i]);
-                    SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Resta", num_line);
                 }
                 break;
             case 47:
@@ -239,13 +242,13 @@ public class LexicalAnalizer : MonoBehaviour
                     else
                     {
                         //Debug.Log("Divicion: " + Texto[i]);
-                        SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
+                        SymbolsTable.Add_New_Token("" + Texto[i], "Divicion", num_line);
                     }
                 }
                 else
                 {
                     //Debug.Log("Divicion: " + Texto[i]);
-                    SymbolsTable.Add_New_Token("" + Texto[i], "Operador", num_line);
+                    SymbolsTable.Add_New_Token("" + Texto[i], "Divicion", num_line);
                 }
                 break;
             default:
@@ -256,6 +259,7 @@ public class LexicalAnalizer : MonoBehaviour
     
     void Comparadores(int num_line)
     {
+        DebugMessage = "No esta completo el comparador: " + palabra;
         //Ve que tipo de comparador es si no pasa al siguiente filtro
         switch (ASCII)
         {
@@ -334,7 +338,8 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 61)
                     {
                         i++;
-                        Debug.Log("Mayor o Igual que: " + Texto[i - 1] + Texto[i]);
+                        SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Mayor_Igual", num_line);
+                        //Debug.Log("Mayor o Igual que: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
@@ -356,15 +361,18 @@ public class LexicalAnalizer : MonoBehaviour
                     {
                         i++;
                         palabra = ""+ Texto[i - 1] + Texto[i];
+                        SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "And", num_line);
                         //es &&(y)
                     }
                     else
                     {
+                        console_Errors.DebugConsole(num_line, DebugMessage);
                         //error falta un & 
                     }
                 }
                 else
                 {
+                    console_Errors.DebugConsole(num_line, DebugMessage);
                     //error falta un & 
                 }
                 break;
@@ -377,15 +385,18 @@ public class LexicalAnalizer : MonoBehaviour
                     {
                         i++;
                         palabra = "" + Texto[i - 1] + Texto[i];
+                        SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Or", num_line);
                         //es ||(o)
                     }
                     else
                     {
+                        console_Errors.DebugConsole(num_line, DebugMessage);
                         //error falta un |
                     }
                 }
                 else
                 {
+                    console_Errors.DebugConsole(num_line, DebugMessage);
                     //error falta un |
                 }
                 break;
@@ -404,25 +415,25 @@ public class LexicalAnalizer : MonoBehaviour
         switch (ASCII)
         {
             case 40:
-                Debug.Log("Parentesis abierto: " + Texto[i]);
+                SymbolsTable.Add_New_Token("" + Texto[i], "Parentesis_abierto", num_line);
                 break;
             case 41:
-                Debug.Log("Parentesis cerrado: " + Texto[i]);
+                SymbolsTable.Add_New_Token("" + Texto[i], "Parentesis_cerrado", num_line);
                 break;
             case 91:
-                Debug.Log("Corchete abierto: " + Texto[i]);
+                SymbolsTable.Add_New_Token("" + Texto[i], "Corchete_abierto", num_line);
                 break;
             case 93:
-                Debug.Log("Corchete cerrado: " + Texto[i]);
+                SymbolsTable.Add_New_Token("" + Texto[i], "Corchete_cerrado", num_line);
                 break;
             case 123:
-                Debug.Log("Llave abierto: " + Texto[i]);
+                SymbolsTable.Add_New_Token("" + Texto[i], "Llave_abierto", num_line);
                 break;
             case 125:
-                Debug.Log("Llave cerrado: " + Texto[i]);
+                SymbolsTable.Add_New_Token("" + Texto[i], "Llave_cerrado", num_line);
                 break;
             case 59:
-                Debug.Log("Punto y coma: " + Texto[i]);
+                SymbolsTable.Add_New_Token("" + Texto[i], "PYC", num_line);
                 break;
             default:
                 console_Errors.DebugConsole(num_line, DebugMessage);
@@ -432,6 +443,7 @@ public class LexicalAnalizer : MonoBehaviour
     
     void comentarios()
     {
+        DebugMessage = "ERROR: No se cerro el comentario linea ";
         //Identifica que tipo de comentario es
         if (ASCII==47)
         {
@@ -444,7 +456,7 @@ public class LexicalAnalizer : MonoBehaviour
                 if (ASCII == 10)
                 {
                     NumLine++;
-                    Debug.Log("Salto de Linea");
+                    //Debug.Log("Salto de Linea");
                     break;
                 }
                 else
@@ -452,7 +464,8 @@ public class LexicalAnalizer : MonoBehaviour
                     palabra += Texto[e];
                 }
             }
-            Debug.Log("Comentario en contrado: "+palabra);
+            SymbolsTable.Add_New_Token(palabra, "comentario", NumLine);
+            //Debug.Log("Comentario en contrado: "+palabra);
             i = e;
         }else if (ASCII==42)
         {
@@ -467,7 +480,7 @@ public class LexicalAnalizer : MonoBehaviour
                 if (ASCII == 10)
                 {
                     NumLine++;
-                    Debug.Log("Salto de Linea");
+                    //Debug.Log("Salto de Linea");
                 }
                 if (ASCII==42)
                 {
@@ -481,7 +494,8 @@ public class LexicalAnalizer : MonoBehaviour
                             e++;
                             palabra += "*/";
                             Termino = true;
-                            Debug.Log("Comentario en contrado: " + palabra);
+                            SymbolsTable.Add_New_Token(palabra, "comentario", numL);
+                            //Debug.Log("Comentario en contrado: " + palabra);
                             break;
                         }
                     }
@@ -492,7 +506,8 @@ public class LexicalAnalizer : MonoBehaviour
             i = e;
             if (!Termino)
             {
-                Debug.Log("ERROR: No se cerro el comentario linea: "+numL);
+                console_Errors.DebugConsole(numL, DebugMessage);
+                //Debug.Log("ERROR: No se cerro el comentario linea: "+numL);
             }
         }
         
@@ -500,11 +515,13 @@ public class LexicalAnalizer : MonoBehaviour
     
     void CadenasCaracter()
     {
+        
         palabra += Texto[i];
         i++;
         //veo si es una cadeno o un caracter
         if (ASCII==34)
         {
+            DebugMessage = "ERROR - No se cerro la cadena de caracteres linea";
             int e, numL = NumLine;
             bool Termino = false;
             //busco hasta encontrar "
@@ -514,13 +531,14 @@ public class LexicalAnalizer : MonoBehaviour
                 if (ASCII == 10)
                 {
                     NumLine++;
-                    Debug.Log("Salto de Linea");
+                    //Debug.Log("Salto de Linea");
                 }
                 if (ASCII == 34)
                 {
                     palabra += Texto[e];
                     Termino = true;
-                    Debug.Log("Cadena de caracteres encontrado: " + palabra);
+                    SymbolsTable.Add_New_Token(palabra, "Cadena", NumLine);
+                    //Debug.Log("Cadena de caracteres encontrado: " + palabra);
                     break;                   
                 }
                 palabra += Texto[e];
@@ -528,18 +546,21 @@ public class LexicalAnalizer : MonoBehaviour
             i = e;
             if (!Termino)
             {
-                Debug.Log("ERROR - No se cerro la cadena de caracteres linea: " + numL);
+                console_Errors.DebugConsole(numL, DebugMessage);
+                //Debug.Log("ERROR - No se cerro la cadena de caracteres linea: " + numL);
             }
         }
         else if (ASCII==39)
         {
+            DebugMessage = "ERROR - No se cerro el caracter";
             if (i != Texto.Length)
             {
                 ASCII = Texto[i]; 
                 if (ASCII == 39)
                 {
                     palabra += Texto[i];
-                    Debug.Log("Caracter Encontrado: " + palabra);
+                    SymbolsTable.Add_New_Token(palabra, "Caracter", NumLine);
+                    //Debug.Log("Caracter Encontrado: " + palabra);
                 }
                 else
                 {
@@ -551,23 +572,28 @@ public class LexicalAnalizer : MonoBehaviour
                         if (ASCII == 39)
                         {
                             palabra += Texto[i];
-                            Debug.Log("Caracter Encontrado: " + palabra);
+                            SymbolsTable.Add_New_Token(palabra, "Caracter", NumLine);
+                            //Debug.Log("Caracter Encontrado: " + palabra);
                         }
                         else
                         {
                             i--;
-                            Debug.Log("ERROR - No se cerro el caracter linea: " + NumLine);
+                            console_Errors.DebugConsole(NumLine, DebugMessage);
+                            //Debug.Log("ERROR - No se cerro el caracter linea: " + NumLine);
                         }
                     }
                     else
                     {
-                        Debug.Log("ERROR - No se cerro el caracter linea: " + NumLine);
+                        
+                        console_Errors.DebugConsole(NumLine, DebugMessage);
+                        //Debug.Log("ERROR - No se cerro el caracter linea: " + NumLine);
                     }
                 }
             }
             else
             {
-                Debug.Log("ERROR - No se cerro el caracter linea: " +NumLine);
+                console_Errors.DebugConsole(NumLine, DebugMessage);
+                //Debug.Log("ERROR - No se cerro el caracter linea: " +NumLine);
             }
 
         }
