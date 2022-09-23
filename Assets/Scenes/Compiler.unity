@@ -4279,7 +4279,9 @@ MonoBehaviour:
 
     ++-/*asasa*/
 
-    float'
+    float
+
+    10'
 --- !u!1 &889036769
 GameObject:
   m_ObjectHideFlags: 0

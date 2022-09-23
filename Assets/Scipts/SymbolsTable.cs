@@ -113,6 +113,10 @@ public class SymbolsTable : MonoBehaviour
 
         switch (NewLexeme)
         {
+            case "void":
+                Type.Add("reservada");
+                AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
+                break;
             case "int":
                 Type.Add("reservada");
                 AddElement.AddNewElement("reservada", FatherType.transform, 30, "Type");
@@ -189,6 +193,13 @@ public class SymbolsTable : MonoBehaviour
         string[] newTL_Token = TL_Token.ToArray();
         switch (lexeme)
         {
+            case "void":
+                TL_Token.RemoveAt(newTL_Token.Length - 1);
+                TL_Token.Add("Tipo");
+                token = "Tipo";
+                Add_new_Lexeme(lexeme, token, line);
+                AddElement.AddNewElement(token, FatherTL_Token.transform, 24, "TL_Token");
+                break;
             case "int":
                 TL_Token.RemoveAt(newTL_Token.Length - 1);
                 TL_Token.Add("Tipo");
@@ -286,17 +297,17 @@ public class SymbolsTable : MonoBehaviour
 
         #region Reset_Symbols_Table
 
-        for (int i = Lexeme.ToArray().Length - 1; i > 8; i--)
+        for (int i = Lexeme.ToArray().Length - 1; i > 9; i--)
         {
             Lexeme.RemoveAt(i);
         }
 
-        for (int i = Token.ToArray().Length - 1; i > 8; i--)
+        for (int i = Token.ToArray().Length - 1; i > 9; i--)
         {
             Token.RemoveAt(i);
         }
 
-        for (int i = Type.ToArray().Length - 1; i > 8; i--)
+        for (int i = Type.ToArray().Length - 1; i > 9; i--)
         {
             Type.RemoveAt(i);
         }
