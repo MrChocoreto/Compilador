@@ -7,6 +7,7 @@ public class LexicalAnalizer : MonoBehaviour
     #region Varibales
     [SerializeField] TextMeshProUGUI InputField;
     [SerializeField] ControlTablas CT;
+    [SerializeField] Analisis2 A2;
     public SymbolsTable SymbolsTable;
     public Console_Errors console_Errors;
     [SerializeField, TextArea] private string Texto = default;
@@ -17,19 +18,15 @@ public class LexicalAnalizer : MonoBehaviour
     string DebugMessage = default;
 
     #endregion
-
-    private void FixedUpdate()
-    {
-        Texto = InputField.text;
-    }
-
     #region Inicio_Analisis
 
     [ContextMenu("Iniciar_Analisis")]
     public void Analize()
     {
+        Texto = InputField.text;
+        CT.LimpiarTodo();
         //limpio las listas para realizar un nuevo analisis
-        ClearAnalizers();
+        //ClearAnalizers();
         // Inicializo el numero de linea siempre en 1
         NumLine = 1;
         for (i = 0; i < Texto.Length-1; i++)
@@ -70,6 +67,7 @@ public class LexicalAnalizer : MonoBehaviour
             }
         }
         CT.AgregarMensaje("Notificacion","Se completo el analisis","");
+        A2.IniAnalisis(CT.RegresarListaTokens(),CT.RegresarListaLineas());
     }
 
 
@@ -149,7 +147,7 @@ public class LexicalAnalizer : MonoBehaviour
                     e--;
                     //se da el avance de e a i en los caracteres
                     i = e;
-                    CT.AgregarToken(palabra, "Decimal");
+                    CT.AgregarToken(palabra, "Decimal",NumLine);
                     //SymbolsTable.Add_New_Token(palabra, "Decimal", num_line);
                 }
                 else
@@ -176,7 +174,7 @@ public class LexicalAnalizer : MonoBehaviour
             e--;
             //se da el avance e a i en los caracteres
             i = e;
-            CT.AgregarToken(palabra, "Entero");
+            CT.AgregarToken(palabra, "Entero", NumLine);
             //SymbolsTable.Add_New_Token(palabra, "Entero", num_line);
         }
     }
@@ -188,7 +186,7 @@ public class LexicalAnalizer : MonoBehaviour
         {
             case 42:
                 //SymbolsTable.Add_New_Token(""+Texto[i], "Operador", num_line);
-                CT.AgregarToken("" + Texto[i], "Multiplicacion");
+                CT.AgregarToken("" + Texto[i], "Multiplicacion", NumLine);
                 //Debug.Log("Multiplicacion: "+Texto[i]);
                 break;
             case 43:
@@ -199,21 +197,21 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII==43)
                     {
                         i++;
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Incremento");
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Incremento", NumLine);
                         //SymbolsTable.Add_New_Token(Texto[i - 1] + "" + Texto[i], "Incremento", num_line);
                         //Debug.Log("Incremento: " + Texto[i-1]+Texto[i]);
                     }
                     else
                     {
                         //Debug.Log("Suma: " + Texto[i]);
-                        CT.AgregarToken("" + Texto[i], "Suma");
+                        CT.AgregarToken("" + Texto[i], "Suma", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Suma", num_line);
                     }
                 }
                 else
                 {
                     //Debug.Log("Suma: " + Texto[i]);
-                    CT.AgregarToken("" + Texto[i], "Suma");
+                    CT.AgregarToken("" + Texto[i], "Suma", NumLine);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Suma", num_line);
                 }
                 break;
@@ -224,20 +222,20 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 45)
                     {
                         i++;
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Decremento");
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Decremento", NumLine);
                         SymbolsTable.Add_New_Token(Texto[i - 1] + "" + Texto[i], "Decremento", num_line);
                         //Debug.Log("Decremento: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        CT.AgregarToken("" + Texto[i], "Resta");
+                        CT.AgregarToken("" + Texto[i], "Resta", NumLine);
                         //Debug.Log("Resta: " + Texto[i]);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Resta", num_line);
                     }
                 }
                 else
                 {
-                    CT.AgregarToken("" + Texto[i], "Resta");
+                    CT.AgregarToken("" + Texto[i], "Resta", NumLine);
                     //Debug.Log("Resta: " + Texto[i]);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Resta", num_line);
                 }
@@ -255,14 +253,14 @@ public class LexicalAnalizer : MonoBehaviour
                     else
                     {
                         //Debug.Log("Divicion: " + Texto[i]);
-                        CT.AgregarToken("" + Texto[i], "Divicion");
+                        CT.AgregarToken("" + Texto[i], "Divicion", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Divicion", num_line);
                     }
                 }
                 else
                 {
                     //Debug.Log("Divicion: " + Texto[i]);
-                    CT.AgregarToken("" + Texto[i], "Divicion");
+                    CT.AgregarToken("" + Texto[i], "Divicion", NumLine);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Divicion", num_line);
                 }
                 break;
@@ -287,20 +285,20 @@ public class LexicalAnalizer : MonoBehaviour
                     {
                         i++;
                         //es un ==
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Comparacion");
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Comparacion", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i - 1] +""+ Texto[i], "Comparador", num_line);
                         //Debug.Log("Comparacion: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        CT.AgregarToken("" + Texto[i], "Asignacion");
+                        CT.AgregarToken("" + Texto[i], "Asignacion", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Asignacion", num_line);
                         //Debug.Log("Asignacion: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    CT.AgregarToken("" + Texto[i], "Asignacion");
+                    CT.AgregarToken("" + Texto[i], "Asignacion", NumLine);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Asignacion", num_line);
                     //Debug.Log("Asignacion: " + Texto[i]);
                 }
@@ -312,20 +310,20 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 33)
                     {
                         i++;
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Diferencia");
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Diferencia", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Diferente_de", num_line);
                         //Debug.Log("Diferencia: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        CT.AgregarToken("" + Texto[i], "Negacion");
+                        CT.AgregarToken("" + Texto[i], "Negacion", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Negacion", num_line);
                         //Debug.Log("Negacion: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    CT.AgregarToken("" + Texto[i], "Negacion");
+                    CT.AgregarToken("" + Texto[i], "Negacion", NumLine);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Negacion", num_line);
                     //Debug.Log("Negacion: " + Texto[i]);
                 }
@@ -337,20 +335,20 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 61)
                     {
                         i++;
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Menor o igual que");
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Menor o igual que", NumLine);
                         SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Menor_Igual", num_line);
                         //Debug.Log("Menor o Igual que: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        CT.AgregarToken("" + Texto[i], "Menor que");
+                        CT.AgregarToken("" + Texto[i], "Menor que", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Menor_que", num_line);
                         //Debug.Log("Menor que: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    CT.AgregarToken("" + Texto[i], "Menor que");
+                    CT.AgregarToken("" + Texto[i], "Menor que", NumLine);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Menor_que", num_line);
                     //Debug.Log("Menor que: " + Texto[i]);
                 }
@@ -362,20 +360,20 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 61)
                     {
                         i++;
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Mayor o igual que");
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Mayor o igual que", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Mayor_Igual", num_line);
                         //Debug.Log("Mayor o Igual que: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        CT.AgregarToken("" + Texto[i], "Mayor que");
+                        CT.AgregarToken("" + Texto[i], "Mayor que", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Mayor_que", num_line);
                         //Debug.Log("Mayor que: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    CT.AgregarToken("" + Texto[i], "Mayor que");
+                    CT.AgregarToken("" + Texto[i], "Mayor que", NumLine);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Mayor_que", num_line);
                     //Debug.Log("Mayor que: " + Texto[i]);
                 }
@@ -388,7 +386,7 @@ public class LexicalAnalizer : MonoBehaviour
                     {
                         i++;
                         palabra = ""+ Texto[i - 1] + Texto[i];
-                        CT.AgregarToken(palabra, "&&");
+                        CT.AgregarToken(palabra, "&&", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "And", num_line);
                         //es &&(y)
                     }
@@ -415,7 +413,7 @@ public class LexicalAnalizer : MonoBehaviour
                     {
                         i++;
                         palabra = "" + Texto[i - 1] + Texto[i];
-                        CT.AgregarToken(palabra, "||");
+                        CT.AgregarToken(palabra, "||", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Or", num_line);
                         //es ||(o)
                     }
@@ -443,36 +441,35 @@ public class LexicalAnalizer : MonoBehaviour
     {
 
         //int hola = Texto[i];
-        DebugMessage = "ERROR-Sinbolo no reconocido o no valido: " + Texto[i] + Texto[i-1];
         //se  busca identificar si es signo valio si no manda error
         switch (ASCII)
         {
             case 40:
-                CT.AgregarToken("" + Texto[i], "Parentesis abierto");
+                CT.AgregarToken("" + Texto[i], "Parentesis abierto", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Parentesis_abierto", num_line);
                 break;
             case 41:
-                CT.AgregarToken("" + Texto[i], "Parentesis cerrado");
+                CT.AgregarToken("" + Texto[i], "Parentesis cerrado", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Parentesis_cerrado", num_line);
                 break;
             case 91:
-                CT.AgregarToken("" + Texto[i], "Corchete abre");
+                CT.AgregarToken("" + Texto[i], "Corchete abre", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Corchete_abierto", num_line);
                 break;
             case 93:
-                CT.AgregarToken("" + Texto[i], "Corchete cerrado");
+                CT.AgregarToken("" + Texto[i], "Corchete cerrado", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Corchete_cerrado", num_line);
                 break;
             case 123:
-                CT.AgregarToken("" + Texto[i], "Llave abierto");
+                CT.AgregarToken("" + Texto[i], "Llave abierto", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Llave_abierto", num_line);
                 break;
             case 125:
-                CT.AgregarToken("" + Texto[i], "Llave cerrado");
+                CT.AgregarToken("" + Texto[i], "Llave cerrado", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Llave_cerrado", num_line);
                 break;
             case 59:
-                CT.AgregarToken("" + Texto[i], "PYC");
+                CT.AgregarToken("" + Texto[i], "PYC", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "PYC", num_line);
                 break;
             default:
@@ -505,7 +502,7 @@ public class LexicalAnalizer : MonoBehaviour
                     palabra += Texto[e];
                 }
             }
-            CT.AgregarToken(palabra,"Comentario");
+            CT.AgregarToken(palabra,"Comentario", NumLine);
             //SymbolsTable.Add_New_Token(palabra, "comentario", NumLine);
             //Debug.Log("Comentario en contrado: "+palabra);
             i = e;
@@ -536,7 +533,7 @@ public class LexicalAnalizer : MonoBehaviour
                             e++;
                             palabra += "*/";
                             Termino = true;
-                            CT.AgregarToken(palabra, "Comentario");
+                            CT.AgregarToken(palabra, "Comentario", NumLine);
                             //SymbolsTable.Add_New_Token(palabra, "comentario", numL);
                             //Debug.Log("Comentario en contrado: " + palabra);
                             break;
@@ -581,7 +578,7 @@ public class LexicalAnalizer : MonoBehaviour
                 {
                     palabra += Texto[e];
                     Termino = true;
-                    CT.AgregarToken(palabra,"Cadena");
+                    CT.AgregarToken(palabra,"Cadena", NumLine);
                     //SymbolsTable.Add_New_Token(palabra, "Cadena", NumLine);
                     //Debug.Log("Cadena de caracteres encontrado: " + palabra);
                     break;                   
@@ -605,7 +602,7 @@ public class LexicalAnalizer : MonoBehaviour
                 if (ASCII == 39)
                 {
                     palabra += Texto[i];
-                    CT.AgregarToken(palabra,"Caracter");
+                    CT.AgregarToken(palabra,"Caracter", NumLine);
                     //SymbolsTable.Add_New_Token(palabra, "Caracter", NumLine);
                     //Debug.Log("Caracter Encontrado: " + palabra);
                 }
@@ -619,7 +616,7 @@ public class LexicalAnalizer : MonoBehaviour
                         if (ASCII == 39)
                         {
                             palabra += Texto[i];
-                            CT.AgregarToken(palabra, "Caracter");
+                            CT.AgregarToken(palabra, "Caracter", NumLine);
                             //SymbolsTable.Add_New_Token(palabra, "Caracter", NumLine);
                             //Debug.Log("Caracter Encontrado: " + palabra);
                         }

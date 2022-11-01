@@ -171,7 +171,7 @@ public class SymbolsTable : MonoBehaviour
 
     public void Add_New_Token(string NewLexeme, string NewToken, int Num_Line)
     {
-        //Añadido de los elementos a la lista de Tokens
+        //Añadido de los elementos a la lista de LisTokens
         TokensTransform.sizeDelta = new Vector2(TokensTransform.sizeDelta.x, TokensTransform.sizeDelta.y + 37);
         TL_Lexeme.Add(NewLexeme);
         AddElement.AddNewElement(NewLexeme, FatherTL_Lexeme.transform, 30, "TL_Lexeme");

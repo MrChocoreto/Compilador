@@ -33,6 +33,7 @@ public class ControlTablas : MonoBehaviour
     [Header("-----ListasTablas-----")]
     [SerializeField] List<TextMeshProUGUI> LisTokenLexemas;
     [SerializeField] List<TextMeshProUGUI> LisTokenToken;
+    [SerializeField] List<int> LisTokenLinea;
     [Space(10)]
     [SerializeField] List<TextMeshProUGUI> LisTablaLexemas;
     [SerializeField] List<TextMeshProUGUI> LisTablaToken;
@@ -45,18 +46,26 @@ public class ControlTablas : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> LisMensajesDescripcion;
     [SerializeField] List<TextMeshProUGUI> LisMensajesLinea;
 
-    private void Awake()
+    private void Start()
     {
         RellenarBace();
     }
     void RellenarBace()
     {
+        LisTokenToken = new List<TextMeshProUGUI>();
+        LisTokenLexemas = new List<TextMeshProUGUI>();
+        LisTokenLinea = new List<int>();
+
         LisTablaLexemas = new List<TextMeshProUGUI>();
         LisTablaToken = new List<TextMeshProUGUI>();
         LisTablaTipo = new List<TextMeshProUGUI>();
         LisTablaNumLinea = new List<TextMeshProUGUI>();
         LisTablaValor = new List<TextMeshProUGUI>();
         LisTablaDesplasamiento = new List<TextMeshProUGUI>();
+
+        LisMensajesTipo = new List<TextMeshProUGUI>();
+        LisMensajesDescripcion = new List<TextMeshProUGUI>();
+        LisMensajesLinea = new List<TextMeshProUGUI>();
         for (int i = 0; i < Lexemas.Count; i++)
         {
             CrearTexto(Lexemas[i], CtablaLexemas, LisTablaLexemas);
@@ -75,13 +84,13 @@ public class ControlTablas : MonoBehaviour
             if (lexema==LisTablaLexemas[i].text)
             {
                 paso = false;
-                AgregarToken(lexema,LisTablaToken[i].text);
+                AgregarToken(lexema,LisTablaToken[i].text,linea);
                 break;
             }
         }
         if (paso==true)
         {
-            AgregarToken(lexema, token);
+            AgregarToken(lexema, token,linea);
             AgregarIdentificador(lexema, token, tipo,""+linea, "","");
         }
     }
@@ -119,10 +128,11 @@ public class ControlTablas : MonoBehaviour
         }
         RellenarBace();
     }
-    public void AgregarToken(string lexema,string token)
+    public void AgregarToken(string lexema,string token,int Lin)
     {
         CrearTexto(lexema,CtokensLexemas,LisTokenLexemas);
         CrearTexto(token,CtokensToken,LisTokenToken);
+        LisTokenLinea.Add(Lin);
     }
     public void AgregarMensaje(string tipo, string descri,string linea)
     {
@@ -138,5 +148,23 @@ public class ControlTablas : MonoBehaviour
         CrearTexto(linea, CtablaNumLinea, LisTablaNumLinea);
         CrearTexto(valor, CtablaValor, LisTablaValor);
         CrearTexto(despla, CtablaDesplasamiento, LisTablaDesplasamiento);
+    }
+    public List<string> RegresarListaTokens()
+    {
+        List<string> t = new List<string>();
+        for (int i = 0; i < LisTokenToken.Count; i++)
+        {
+            t.Add(LisTokenToken[i].text);
+        }
+        return t;
+    }
+    public List<int> RegresarListaLineas()
+    {
+        List<int> t = new List<int>();
+        for (int i = 0; i < LisTokenLinea.Count; i++)
+        {
+            t.Add(LisTokenLinea[0]);
+        }
+        return t;
     }
 }
