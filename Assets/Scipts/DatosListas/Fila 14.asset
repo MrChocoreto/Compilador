@@ -17,6 +17,7 @@ MonoBehaviour:
     - _key: TODO
       _value:
         LineaDes: 0
-        TokenResultado: 
+        TokenResultado: l
         listaTokenRetroceso:
-        - PYC
+        - USING
+        - H

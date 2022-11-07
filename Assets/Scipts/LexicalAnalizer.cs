@@ -97,7 +97,7 @@ public class LexicalAnalizer : MonoBehaviour
         //se da el avance e a i en los caracteres
         i = e;
         //Debug.Log("Identificador Encontrado: " + palabra);
-        CT.ComprobarIdentificador(palabra,"IDENTIFICADOR","identificador",num_line);
+        CT.ComprobarIdentificador(palabra,"IDENTIFICADOR","",num_line);
         //SymbolsTable.Add_New_Token(palabra,"Identificador", num_line);
     }  
     
@@ -445,31 +445,43 @@ public class LexicalAnalizer : MonoBehaviour
         switch (ASCII)
         {
             case 40:
-                CT.AgregarToken("" + Texto[i], "Parentesis abierto", NumLine);
+                CT.AgregarToken("" + Texto[i], "PA", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Parentesis_abierto", num_line);
                 break;
             case 41:
-                CT.AgregarToken("" + Texto[i], "Parentesis cerrado", NumLine);
+                CT.AgregarToken("" + Texto[i], "PC", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Parentesis_cerrado", num_line);
                 break;
             case 91:
-                CT.AgregarToken("" + Texto[i], "Corchete abre", NumLine);
+                CT.AgregarToken("" + Texto[i], "CA", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Corchete_abierto", num_line);
                 break;
             case 93:
-                CT.AgregarToken("" + Texto[i], "Corchete cerrado", NumLine);
+                CT.AgregarToken("" + Texto[i], "CC", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Corchete_cerrado", num_line);
                 break;
             case 123:
-                CT.AgregarToken("" + Texto[i], "Llave abierto", NumLine);
+                CT.AgregarToken("" + Texto[i], "LLA", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Llave_abierto", num_line);
                 break;
             case 125:
-                CT.AgregarToken("" + Texto[i], "Llave cerrado", NumLine);
+                CT.AgregarToken("" + Texto[i], "LLC", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "Llave_cerrado", num_line);
                 break;
             case 59:
                 CT.AgregarToken("" + Texto[i], "PYC", NumLine);
+                //SymbolsTable.Add_New_Token("" + Texto[i], "PYC", num_line);
+                break;
+            case 94:
+                CT.AgregarToken("" + Texto[i], "POTENCIA", NumLine);
+                //SymbolsTable.Add_New_Token("" + Texto[i], "PYC", num_line);
+                break;
+            case 58:
+                CT.AgregarToken("" + Texto[i], "DOSP", NumLine);
+                //SymbolsTable.Add_New_Token("" + Texto[i], "PYC", num_line);
+                break;
+            case 44:
+                CT.AgregarToken("" + Texto[i], "COMA", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "PYC", num_line);
                 break;
             default:
@@ -502,7 +514,7 @@ public class LexicalAnalizer : MonoBehaviour
                     palabra += Texto[e];
                 }
             }
-            CT.AgregarToken(palabra,"Comentario", NumLine);
+            CT.AgregarToken(palabra,"COMENTARIO", NumLine);
             //SymbolsTable.Add_New_Token(palabra, "comentario", NumLine);
             //Debug.Log("Comentario en contrado: "+palabra);
             i = e;
@@ -533,7 +545,7 @@ public class LexicalAnalizer : MonoBehaviour
                             e++;
                             palabra += "*/";
                             Termino = true;
-                            CT.AgregarToken(palabra, "Comentario", NumLine);
+                            CT.AgregarToken(palabra, "COMENTARIO", NumLine);
                             //SymbolsTable.Add_New_Token(palabra, "comentario", numL);
                             //Debug.Log("Comentario en contrado: " + palabra);
                             break;
@@ -578,7 +590,7 @@ public class LexicalAnalizer : MonoBehaviour
                 {
                     palabra += Texto[e];
                     Termino = true;
-                    CT.AgregarToken(palabra,"Cadena", NumLine);
+                    CT.AgregarToken(palabra,"CADENA", NumLine);
                     //SymbolsTable.Add_New_Token(palabra, "Cadena", NumLine);
                     //Debug.Log("Cadena de caracteres encontrado: " + palabra);
                     break;                   
@@ -602,7 +614,7 @@ public class LexicalAnalizer : MonoBehaviour
                 if (ASCII == 39)
                 {
                     palabra += Texto[i];
-                    CT.AgregarToken(palabra,"Caracter", NumLine);
+                    CT.AgregarToken(palabra,"CARACTER", NumLine);
                     //SymbolsTable.Add_New_Token(palabra, "Caracter", NumLine);
                     //Debug.Log("Caracter Encontrado: " + palabra);
                 }
@@ -616,7 +628,7 @@ public class LexicalAnalizer : MonoBehaviour
                         if (ASCII == 39)
                         {
                             palabra += Texto[i];
-                            CT.AgregarToken(palabra, "Caracter", NumLine);
+                            CT.AgregarToken(palabra, "CARACTER", NumLine);
                             //SymbolsTable.Add_New_Token(palabra, "Caracter", NumLine);
                             //Debug.Log("Caracter Encontrado: " + palabra);
                         }

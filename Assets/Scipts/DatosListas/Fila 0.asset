@@ -14,68 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rutas:
     _keys:
-    - _key: PUBLIC
-      _value:
-        LineaDes: 3
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: PRIVATE
-      _value:
-        LineaDes: 4
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: PROTECTED
-      _value:
-        LineaDes: 5
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: Bacio
-      _value:
-        LineaDes: 6
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: IDENTIFICADOR
-      _value:
-        LineaDes: 19
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: PYC
-      _value:
-        LineaDes: 9
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: Asignacion
-      _value:
-        LineaDes: 11
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: P
+    - _key: S
       _value:
         LineaDes: 1
         TokenResultado: 
         listaTokenRetroceso: []
-    - _key: E
+    - _key: L
       _value:
-        LineaDes: 2
+        LineaDes: 3
         TokenResultado: 
         listaTokenRetroceso: []
-    - _key: Tipo
+    - _key: l
       _value:
-        LineaDes: 7
+        LineaDes: 4
         TokenResultado: 
         listaTokenRetroceso: []
-    - _key: H
+    - _key: USING
       _value:
-        LineaDes: 16
+        LineaDes: 11
         TokenResultado: 
         listaTokenRetroceso: []
-    - _key: C
+    - _key: BACIO
       _value:
-        LineaDes: 17
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: A
-      _value:
-        LineaDes: 10
+        LineaDes: 18
         TokenResultado: 
         listaTokenRetroceso: []

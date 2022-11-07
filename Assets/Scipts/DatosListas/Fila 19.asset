@@ -14,13 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rutas:
     _keys:
-    - _key: Asignacion
+    - _key: TODO
       _value:
-        LineaDes: 11
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: A
-      _value:
-        LineaDes: 20
-        TokenResultado: 
-        listaTokenRetroceso: []
+        LineaDes: 0
+        TokenResultado: S
+        listaTokenRetroceso:
+        - L
+        - C

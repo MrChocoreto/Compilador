@@ -8,10 +8,11 @@ public class Analisis2 : MonoBehaviour
     [SerializeField] ControlTablas CT;
     List<string> LisTokens;
     List<int> PosLinea;
-    string Bariable;
+    List<string> Lexemas;
     List<string> EntradaTokens;
     public List<int> LisLinea;
-    bool EncontroError;
+    bool EncontroError,TipoEncontrado,ValorEncontrado,IdenEncntrado;
+    string tipo,identi,valor;
     public void IniAnalisis(List<string> LTokens,List<int> Llineas)
     {
         LisTokens = new List<string>();
@@ -20,13 +21,16 @@ public class Analisis2 : MonoBehaviour
         PosLinea.Add(0);
         EntradaTokens = LTokens;
         LisLinea = Llineas;
+        Lexemas = CT.RegresarListaLexemas();
         EncontroError = false;
         if (EntradaTokens.Count>0)
         {
+            
             LisLinea.Add(LisLinea[LisLinea.Count-1]);
             EntradaTokens.Add("FIN");
             for (int i = 0; i < 150; i++)
             {
+                //Debug.Log(1);
                 objetoLista p = Tabla[PosLinea[PosLinea.Count - 1]];
                 if (EntradaTokens[0] == "FIN" && PosLinea[1] == 1)
                 {
@@ -34,17 +38,16 @@ public class Analisis2 : MonoBehaviour
                 }
                 else if (p.Rutas.ContainsKey(EntradaTokens[0]))
                 {
-                    //Debug.Log(EntradaTokens[0] + " " + PosLinea[PosLinea.Count - 1]);
+                    Debug.Log(EntradaTokens[0] + " " + PosLinea[PosLinea.Count - 1]);
                     Desplasamineto(p);
                 }
-                else if (p.Rutas.ContainsKey("Bacio"))
+                else if (p.Rutas.ContainsKey("BACIO"))
                 {
-                    LisTokens.Add("Bacio");
-                    PosLinea.Add(p.Rutas.GetValueOrDefault("Bacio").Value.LineaDes);
+                    LisTokens.Add("BACIO");
+                    PosLinea.Add(p.Rutas.GetValueOrDefault("BACIO").Value.LineaDes);
                 }
                 else if (p.Rutas.ContainsKey("TODO"))
                 {
-                    //Debug.Log(1);
                     Retroceso(p);
                 }
                 else
@@ -56,7 +59,7 @@ public class Analisis2 : MonoBehaviour
                         Tokens += item + ",";
                     }
                     men = Tokens.Trim(',');
-                    CT.AgregarMensaje("ERROR", "Se esperaba unos de estos tokens " + men, "" + LisLinea[0]);
+                    CT.AgregarMensaje("ERROR","Se esperaba unos de estos tokens " + men, "" + LisLinea[0]);
                     EncontroError = true;
                 }
                 if (EncontroError == true)
@@ -88,11 +91,6 @@ public class Analisis2 : MonoBehaviour
                 PosLinea.RemoveAt(PosLinea.Count - 1);
                 LisTokens.RemoveAt(LisTokens.Count - 1);
             }
-            else if (LisTokens[LisTokens.Count - 1]=="Bacio")
-            {
-                PosLinea.RemoveAt(PosLinea.Count - 1);
-                LisTokens.RemoveAt(LisTokens.Count - 1);
-            }
             else
             {
                 CT.AgregarMensaje("ERROR"," Lista de tokens incompleta para "+TokenRetro, "");
@@ -104,22 +102,80 @@ public class Analisis2 : MonoBehaviour
         if (Paso==true)
         {
             EntradaTokens.Insert(0,TokenRetro);
+            Lexemas.Insert(0,"");
             LisLinea.Insert(0, LisLinea[0]);
         }
     }
     void Desplasamineto(objetoLista Pos)
     {
+        DeclaracionBariable(EntradaTokens[0]);
         LisTokens.Add(EntradaTokens[0]);
         PosLinea.Add(Pos.Rutas.GetValueOrDefault(EntradaTokens[0]).Value.LineaDes);
         EntradaTokens.RemoveAt(0);
         LisLinea.RemoveAt(0);
+        Lexemas.RemoveAt(0);
     }
-    void PonerTipo()
+    void DeclaracionBariable(string Token)
     {
 
-    }
-    void DeclaracionBariable()
-    {
+        if (Token=="Tipo")
+        {         
+            tipo = Lexemas[0];
+            TipoEncontrado = true;
+        }
+        else if (Token=="IDENTIFICADOR" && TipoEncontrado==true)
+        {
+            identi = Lexemas[0];
+            if (CT.VariableDeclarada(identi))
+            {
+                CT.AgregarMensaje("ERROR","Varible ya declarado con anterioridad: "+identi,""+LisLinea[0]);
+                tipo = "";
+                identi = "";
+                TipoEncontrado = false;
+                Debug.Log(1);
+            }
+            else
+            {
+                IdenEncntrado = true;
+                CT.AgregarTipo(identi,tipo);
+            }
+        }
+        else if (Token == "IDENTIFICADOR")
+        {
+            identi = Lexemas[0];
+            if (!CT.VariableDeclarada(identi))
+            {
+                if (EntradaTokens[1]!= "PA" && LisTokens[LisTokens.Count-1]!="USING" && LisTokens[LisTokens.Count - 1] != "CLASS")
+                {
+                    CT.AgregarMensaje("ERROR", "Varible no declarada: " + identi, "" + LisLinea[0]);                   
+                }
+            }
+            else
+            {
+                IdenEncntrado = true;
+            }
 
+        }
+        else if (Token == "Asignacion" && IdenEncntrado==true)
+        {
+            ValorEncontrado = true;
+        }
+        else if (Token == "PYC"||Token== "PA")
+        {
+            CT.AgregarValor(identi, valor);
+            tipo = "";
+            identi = "";
+            valor = "";
+            TipoEncontrado = false;
+            IdenEncntrado = false;
+            ValorEncontrado = false;
+        }
+        if (ValorEncontrado==true)
+        {
+            if (Token!= "Asignacion")
+            {
+                valor += Lexemas[0];
+            }
+        }
     }
 }

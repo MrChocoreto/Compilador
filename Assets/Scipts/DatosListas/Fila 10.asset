@@ -17,6 +17,10 @@ MonoBehaviour:
     - _key: TODO
       _value:
         LineaDes: 0
-        TokenResultado: C
+        TokenResultado: c
         listaTokenRetroceso:
-        - A
+        - CLASS
+        - IDENTIFICADOR
+        - LLA
+        - B
+        - LLC

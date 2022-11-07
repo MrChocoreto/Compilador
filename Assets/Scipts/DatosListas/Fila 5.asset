@@ -17,6 +17,6 @@ MonoBehaviour:
     - _key: TODO
       _value:
         LineaDes: 0
-        TokenResultado: E
+        TokenResultado: C
         listaTokenRetroceso:
-        - PROTECTED
+        - BACIO

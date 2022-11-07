@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rutas:
     _keys:
-    - _key: PYC
-      _value:
-        LineaDes: 9
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: Asignacion
-      _value:
-        LineaDes: 11
-        TokenResultado: 
-        listaTokenRetroceso: []
     - _key: C
       _value:
         LineaDes: 17
         TokenResultado: 
         listaTokenRetroceso: []
-    - _key: A
+    - _key: c
       _value:
-        LineaDes: 10
+        LineaDes: 16
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: BACIO
+      _value:
+        LineaDes: 5
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: CLASS
+      _value:
+        LineaDes: 6
         TokenResultado: 
         listaTokenRetroceso: []

@@ -17,9 +17,7 @@ MonoBehaviour:
     - _key: TODO
       _value:
         LineaDes: 0
-        TokenResultado: P
+        TokenResultado: C
         listaTokenRetroceso:
-        - E
-        - T
-        - H
+        - c
         - C

@@ -13,14 +13,4 @@ MonoBehaviour:
   m_Name: Fila 2
   m_EditorClassIdentifier: 
   Rutas:
-    _keys:
-    - _key: Tipo
-      _value:
-        LineaDes: 7
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: T
-      _value:
-        LineaDes: 18
-        TokenResultado: 
-        listaTokenRetroceso: []
+    _keys: []

@@ -17,8 +17,7 @@ MonoBehaviour:
     - _key: TODO
       _value:
         LineaDes: 0
-        TokenResultado: A
+        TokenResultado: H
         listaTokenRetroceso:
-        - Asignacion
-        - Entero
+        - IDENTIFICADOR
         - PYC

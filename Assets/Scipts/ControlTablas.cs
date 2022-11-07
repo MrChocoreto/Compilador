@@ -163,8 +163,55 @@ public class ControlTablas : MonoBehaviour
         List<int> t = new List<int>();
         for (int i = 0; i < LisTokenLinea.Count; i++)
         {
-            t.Add(LisTokenLinea[0]);
+            t.Add(LisTokenLinea[i]);
         }
         return t;
+    }
+    public List<string> RegresarListaLexemas()
+    {
+        List<string> t = new List<string>();
+        for (int i = 0; i < LisTokenLexemas.Count; i++)
+        {
+            t.Add(LisTokenLexemas[i].text);
+        }
+        return t;
+    }
+    public bool VariableDeclarada(string Iden)
+    {
+        bool SeEncontro=false;
+        for (int i = 0; i < LisTablaLexemas.Count; i++)
+        {
+            if (LisTablaLexemas[i].text == Iden)
+            {
+                if (LisTablaTipo[i].text!="")
+                {
+                    SeEncontro = true;
+                }
+                break;
+            }
+        }
+        return SeEncontro;
+    }
+    public void AgregarTipo(string Iden,string T)
+    {
+        for (int i=0;i<LisTablaLexemas.Count;i++)
+        {
+            if (LisTablaLexemas[i].text==Iden)
+            {
+                LisTablaTipo[i].text =T;
+                break;
+            }
+        }
+    }
+    public void AgregarValor(string Iden, string T)
+    {
+        for (int i = 0; i < LisTablaLexemas.Count; i++)
+        {
+            if (LisTablaLexemas[i].text == Iden)
+            {
+                LisTablaValor[i].text = T;
+                break;
+            }
+        }
     }
 }

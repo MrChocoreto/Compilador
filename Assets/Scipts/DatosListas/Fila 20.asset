@@ -14,10 +14,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rutas:
     _keys:
-    - _key: TODO
+    - _key: B
       _value:
-        LineaDes: 0
-        TokenResultado: P
-        listaTokenRetroceso:
-        - IDENTIFICADOR
-        - A
+        LineaDes: 31
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: b
+      _value:
+        LineaDes: 20
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: BACIO
+      _value:
+        LineaDes: 21
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: E
+      _value:
+        LineaDes: 22
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: PRIVATE
+      _value:
+        LineaDes: 23
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: PUBLIC
+      _value:
+        LineaDes: 24
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: PROTECTED
+      _value:
+        LineaDes: 25
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: Tipo
+      _value:
+        LineaDes: 30
+        TokenResultado: 0
+        listaTokenRetroceso: []

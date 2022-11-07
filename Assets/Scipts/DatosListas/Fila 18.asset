@@ -14,13 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rutas:
     _keys:
-    - _key: IDENTIFICADOR
+    - _key: TODO
       _value:
-        LineaDes: 8
-        TokenResultado: 
-        listaTokenRetroceso: []
-    - _key: H
-      _value:
-        LineaDes: 16
-        TokenResultado: 
-        listaTokenRetroceso: []
+        LineaDes: 0
+        TokenResultado: L
+        listaTokenRetroceso:
+        - BACIO
