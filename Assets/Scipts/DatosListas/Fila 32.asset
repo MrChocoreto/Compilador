@@ -21,6 +21,16 @@ MonoBehaviour:
         listaTokenRetroceso: []
     - _key: Asignacion
       _value:
+        LineaDes: 36
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: A
+      _value:
         LineaDes: 34
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: PA
+      _value:
+        LineaDes: 81
         TokenResultado: 
         listaTokenRetroceso: []

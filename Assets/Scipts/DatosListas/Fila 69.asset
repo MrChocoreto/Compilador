@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8b18c594378124ab13e634931f09f8, type: 3}
+  m_Name: Fila 69
+  m_EditorClassIdentifier: 
+  Rutas:
+    _keys:
+    - _key: VALOR
+      _value:
+        LineaDes: 63
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: PARAMETRO
+      _value:
+        LineaDes: 71
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: V
+      _value:
+        LineaDes: 48
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: ENTERO
+      _value:
+        LineaDes: 40
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: DECIMAL
+      _value:
+        LineaDes: 41
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: CADENA
+      _value:
+        LineaDes: 42
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: CARACTER
+      _value:
+        LineaDes: 43
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: BOOL
+      _value:
+        LineaDes: 44
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: LLAMADO
+      _value:
+        LineaDes: 49
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: NOMBRE
+      _value:
+        LineaDes: 50
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: PA
+      _value:
+        LineaDes: 45
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: IDENTIFICADOR
+      _value:
+        LineaDes: 46
+        TokenResultado: 
+        listaTokenRetroceso: []

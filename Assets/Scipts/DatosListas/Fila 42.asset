@@ -17,10 +17,6 @@ MonoBehaviour:
     - _key: TODO
       _value:
         LineaDes: 0
-        TokenResultado: b
+        TokenResultado: V
         listaTokenRetroceso:
-        - E
-        - IDENTIFICADOR
-        - Asignacion
-        - BOOL
-        - PYC
+        - CADENA

@@ -54,3 +54,23 @@ MonoBehaviour:
         LineaDes: 30
         TokenResultado: 0
         listaTokenRetroceso: []
+    - _key: IDENTIFICADOR
+      _value:
+        LineaDes: 35
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: LLAMADO
+      _value:
+        LineaDes: 47
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: METODOLLA
+      _value:
+        LineaDes: 74
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: m
+      _value:
+        LineaDes: 104
+        TokenResultado: 0
+        listaTokenRetroceso: []

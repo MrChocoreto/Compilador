@@ -6,10 +6,11 @@ public class Analisis2 : MonoBehaviour
 {
     [SerializeField] List<objetoLista> Tabla;
     [SerializeField] ControlTablas CT;
-    List<string> LisTokens;
+    [SerializeField] Analisis3 An3;
+    public List<string> LisTokens;
     List<int> PosLinea;
     List<string> Lexemas;
-    List<string> EntradaTokens;
+    public List<string> EntradaTokens;
     public List<int> LisLinea;
     bool EncontroError,TipoEncontrado,ValorEncontrado,IdenEncntrado;
     string tipo,identi,valor;
@@ -30,7 +31,7 @@ public class Analisis2 : MonoBehaviour
             EntradaTokens.Add("FIN");
             for (int i = 0; i < 150; i++)
             {
-                //Debug.Log(1);
+
                 objetoLista p = Tabla[PosLinea[PosLinea.Count - 1]];
                 if (EntradaTokens[0] == "FIN" && PosLinea[1] == 1)
                 {
@@ -48,6 +49,7 @@ public class Analisis2 : MonoBehaviour
                 }
                 else if (p.Rutas.ContainsKey("TODO"))
                 {
+                    Debug.Log(1);
                     Retroceso(p);
                 }
                 else
@@ -76,6 +78,7 @@ public class Analisis2 : MonoBehaviour
         else
         {
             CT.AgregarMensaje("Mensage", "Se termino el analisis 2", "");
+            An3.Despasamientos();
         }
     }
     void Retroceso(objetoLista Pos)
@@ -119,9 +122,12 @@ public class Analisis2 : MonoBehaviour
     {
 
         if (Token=="Tipo")
-        {         
-            tipo = Lexemas[0];
-            TipoEncontrado = true;
+        {
+            if (TipoEncontrado==false)
+            {
+                tipo = Lexemas[0];
+                TipoEncontrado = true;
+            }
         }
         else if (Token=="IDENTIFICADOR" && TipoEncontrado==true)
         {
@@ -132,36 +138,56 @@ public class Analisis2 : MonoBehaviour
                 tipo = "";
                 identi = "";
                 TipoEncontrado = false;
-                Debug.Log(1);
             }
             else
             {
+                TipoEncontrado = false;
                 IdenEncntrado = true;
                 CT.AgregarTipo(identi,tipo);
+                tipo = "";
             }
         }
         else if (Token == "IDENTIFICADOR")
         {
-            identi = Lexemas[0];
-            if (!CT.VariableDeclarada(identi))
+            if (!CT.VariableDeclarada(Lexemas[0]))
             {
-                if (EntradaTokens[1]!= "PA" && LisTokens[LisTokens.Count-1]!="USING" && LisTokens[LisTokens.Count - 1] != "CLASS")
+                if (EntradaTokens[1]== "PA" )
                 {
-                    CT.AgregarMensaje("ERROR", "Varible no declarada: " + identi, "" + LisLinea[0]);                   
+                    CT.CambiarToken(Lexemas[0], "Metodo");
+                }
+                else if (LisTokens[LisTokens.Count - 1] == "USING")
+                {
+                    CT.CambiarToken(Lexemas[0],"LIBRERIA");
+                }
+                else if (LisTokens[LisTokens.Count - 1] == "CLASS")
+                {
+                    CT.CambiarToken(Lexemas[0], "CLASE");
+                }
+                else
+                {
+                    CT.AgregarMensaje("ERROR", "Varible no declarada: " + Lexemas[0], "" + LisLinea[0]);
                 }
             }
             else
             {
-                IdenEncntrado = true;
+                if (ValorEncontrado == false)
+                {
+                    identi = Lexemas[0];
+                    IdenEncntrado = true;
+                }
             }
-
         }
         else if (Token == "Asignacion" && IdenEncntrado==true)
         {
             ValorEncontrado = true;
         }
-        else if (Token == "PYC"||Token== "PA")
+        else if (Token == "PYC"||Token== "PA" && ValorEncontrado == false 
+            || Token=="COMA" && ValorEncontrado==false || Token == "PC" && EntradaTokens[1] == "LLA")
         {
+            if (Token == "PA")
+            {
+                CT.CambiarToken(identi, "Metodo");
+            }
             CT.AgregarValor(identi, valor);
             tipo = "";
             identi = "";

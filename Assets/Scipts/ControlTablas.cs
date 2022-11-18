@@ -69,32 +69,32 @@ public class ControlTablas : MonoBehaviour
         for (int i = 0; i < Lexemas.Count; i++)
         {
             CrearTexto(Lexemas[i], CtablaLexemas, LisTablaLexemas);
-            CrearTexto(Token[i], CtablaToken,LisTablaToken);
-            CrearTexto(Tipo[i], CtablaTipo,LisTablaTipo);
-            CrearTexto("", CtablaNumLinea,LisTablaNumLinea);
-            CrearTexto("", CtablaValor,LisTablaValor);
-            CrearTexto("", CtablaDesplasamiento,LisTablaDesplasamiento);
+            CrearTexto(Token[i], CtablaToken, LisTablaToken);
+            CrearTexto(Tipo[i], CtablaTipo, LisTablaTipo);
+            CrearTexto("", CtablaNumLinea, LisTablaNumLinea);
+            CrearTexto("", CtablaValor, LisTablaValor);
+            CrearTexto("", CtablaDesplasamiento, LisTablaDesplasamiento);
         }
     }
     public void ComprobarIdentificador(string lexema, string token, string tipo, int linea)
     {
         bool paso = true;
-        for (int i=0;i<LisTablaLexemas.Count;i++)
+        for (int i = 0; i < LisTablaLexemas.Count; i++)
         {
-            if (lexema==LisTablaLexemas[i].text)
+            if (lexema == LisTablaLexemas[i].text)
             {
                 paso = false;
-                AgregarToken(lexema,LisTablaToken[i].text,linea);
+                AgregarToken(lexema, LisTablaToken[i].text, linea);
                 break;
             }
         }
-        if (paso==true)
+        if (paso == true)
         {
-            AgregarToken(lexema, token,linea);
-            AgregarIdentificador(lexema, token, tipo,""+linea, "","");
+            AgregarToken(lexema, token, linea);
+            AgregarIdentificador(lexema, token, tipo, "" + linea, "", "");
         }
     }
-    void CrearTexto(string Informacion,RectTransform Posicion, List<TextMeshProUGUI> Lista)
+    void CrearTexto(string Informacion, RectTransform Posicion, List<TextMeshProUGUI> Lista)
     {
         GameObject Creado = Instantiate(ObjetoTexto);
         Creado.transform.SetParent(Posicion);
@@ -104,7 +104,7 @@ public class ControlTablas : MonoBehaviour
     public void LimpiarTodo()
     {
         int num = LisTokenLexemas.Count;
-        for (int i=0;i<num;i++)
+        for (int i = 0; i < num; i++)
         {
             Destroy(LisTokenLexemas[i].gameObject);
             Destroy(LisTokenToken[i].gameObject);
@@ -128,13 +128,13 @@ public class ControlTablas : MonoBehaviour
         }
         RellenarBace();
     }
-    public void AgregarToken(string lexema,string token,int Lin)
+    public void AgregarToken(string lexema, string token, int Lin)
     {
-        CrearTexto(lexema,CtokensLexemas,LisTokenLexemas);
-        CrearTexto(token,CtokensToken,LisTokenToken);
+        CrearTexto(lexema, CtokensLexemas, LisTokenLexemas);
+        CrearTexto(token, CtokensToken, LisTokenToken);
         LisTokenLinea.Add(Lin);
     }
-    public void AgregarMensaje(string tipo, string descri,string linea)
+    public void AgregarMensaje(string tipo, string descri, string linea)
     {
         CrearTexto(tipo, CmensajesTipo, LisMensajesTipo);
         CrearTexto(descri, CmensajesDescripcion, LisMensajesDescripcion);
@@ -178,12 +178,12 @@ public class ControlTablas : MonoBehaviour
     }
     public bool VariableDeclarada(string Iden)
     {
-        bool SeEncontro=false;
+        bool SeEncontro = false;
         for (int i = 0; i < LisTablaLexemas.Count; i++)
         {
             if (LisTablaLexemas[i].text == Iden)
             {
-                if (LisTablaTipo[i].text!="")
+                if (LisTablaTipo[i].text != "")
                 {
                     SeEncontro = true;
                 }
@@ -192,13 +192,13 @@ public class ControlTablas : MonoBehaviour
         }
         return SeEncontro;
     }
-    public void AgregarTipo(string Iden,string T)
+    public void AgregarTipo(string Iden, string T)
     {
-        for (int i=0;i<LisTablaLexemas.Count;i++)
+        for (int i = 0; i < LisTablaLexemas.Count; i++)
         {
-            if (LisTablaLexemas[i].text==Iden)
+            if (LisTablaLexemas[i].text == Iden)
             {
-                LisTablaTipo[i].text =T;
+                LisTablaTipo[i].text = T;
                 break;
             }
         }
@@ -210,6 +210,39 @@ public class ControlTablas : MonoBehaviour
             if (LisTablaLexemas[i].text == Iden)
             {
                 LisTablaValor[i].text = T;
+                break;
+            }
+        }
+    }
+    public void agregarDes(int pos, int despla)
+    {
+        LisTablaDesplasamiento[pos].text = "" + despla;
+    }
+    public List<string> RegresarListaTokens2()
+    {
+        List<string> t = new List<string>();
+        for (int i = 0; i < LisTablaToken.Count; i++)
+        {
+            t.Add(LisTablaToken[i].text);
+        }
+        return t;
+    }
+    public List<string> RegresarListaTipo()
+    {
+        List<string> t = new List<string>();
+        for (int i = 0; i < LisTablaTipo.Count; i++)
+        {
+            t.Add(LisTablaTipo[i].text);
+        }
+        return t;
+    }
+    public void CambiarToken(string Iden, string T)
+    {
+        for (int i = 0; i < LisTablaLexemas.Count; i++)
+        {
+            if (LisTablaLexemas[i].text == Iden)
+            {
+                LisTablaToken[i].text = T;
                 break;
             }
         }

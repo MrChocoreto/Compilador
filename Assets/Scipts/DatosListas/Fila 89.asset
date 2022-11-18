@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8b18c594378124ab13e634931f09f8, type: 3}
+  m_Name: Fila 89
+  m_EditorClassIdentifier: 
+  Rutas:
+    _keys:
+    - _key: Return
+      _value:
+        LineaDes: 92
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: BACIO
+      _value:
+        LineaDes: 90
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: RETURN
+      _value:
+        LineaDes: 91
+        TokenResultado: 
+        listaTokenRetroceso: []

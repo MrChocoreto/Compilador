@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8b18c594378124ab13e634931f09f8, type: 3}
+  m_Name: Fila 48
+  m_EditorClassIdentifier: 
+  Rutas:
+    _keys:
+    - _key: OPERACION
+      _value:
+        LineaDes: 57
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: OPERADOR
+      _value:
+        LineaDes: 58
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: BACIO
+      _value:
+        LineaDes: 51
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: MULTIPLICACION
+      _value:
+        LineaDes: 52
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: DIVICION
+      _value:
+        LineaDes: 53
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: SUMA
+      _value:
+        LineaDes: 54
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: RESTA
+      _value:
+        LineaDes: 55
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: POTENCIA
+      _value:
+        LineaDes: 56
+        TokenResultado: 
+        listaTokenRetroceso: []

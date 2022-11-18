@@ -14,8 +14,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rutas:
     _keys:
-    - _key: PYC
+    - _key: VALOR
+      _value:
+        LineaDes: 38
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: V
+      _value:
+        LineaDes: 48
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: ENTERO
+      _value:
+        LineaDes: 40
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: DECIMAL
       _value:
         LineaDes: 41
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: CADENA
+      _value:
+        LineaDes: 42
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: CARACTER
+      _value:
+        LineaDes: 43
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: BOOL
+      _value:
+        LineaDes: 44
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: LLAMADO
+      _value:
+        LineaDes: 49
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: NOMBRE
+      _value:
+        LineaDes: 50
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: PA
+      _value:
+        LineaDes: 45
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: IDENTIFICADOR
+      _value:
+        LineaDes: 46
         TokenResultado: 
         listaTokenRetroceso: []

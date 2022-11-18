@@ -16,6 +16,6 @@ MonoBehaviour:
     _keys:
     - _key: PYC
       _value:
-        LineaDes: 42
+        LineaDes: 39
         TokenResultado: 
         listaTokenRetroceso: []
