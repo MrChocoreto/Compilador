@@ -29,3 +29,13 @@ MonoBehaviour:
         LineaDes: 61
         TokenResultado: 
         listaTokenRetroceso: []
+    - _key: INCREMENTO
+      _value:
+        LineaDes: 209
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: DECREMENTO
+      _value:
+        LineaDes: 210
+        TokenResultado: 
+        listaTokenRetroceso: []

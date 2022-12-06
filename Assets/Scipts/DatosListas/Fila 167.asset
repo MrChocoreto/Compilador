@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8b18c594378124ab13e634931f09f8, type: 3}
+  m_Name: Fila 167
+  m_EditorClassIdentifier: 
+  Rutas:
+    _keys:
+    - _key: B
+      _value:
+        LineaDes: 107
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: b
+      _value:
+        LineaDes: 20
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: E
+      _value:
+        LineaDes: 22
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: Tipo
+      _value:
+        LineaDes: 30
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: IDENTIFICADOR
+      _value:
+        LineaDes: 35
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: LLAMADO
+      _value:
+        LineaDes: 47
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: METODOLLA
+      _value:
+        LineaDes: 74
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: m
+      _value:
+        LineaDes: 104
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: a
+      _value:
+        LineaDes: 105
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: CONTENIDO
+      _value:
+        LineaDes: 168
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: c
+      _value:
+        LineaDes: 119
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: BACIO
+      _value:
+        LineaDes: 88
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: SSWICH
+      _value:
+        LineaDes: 116
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: SWICH
+      _value:
+        LineaDes: 130
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: SWHILE
+      _value:
+        LineaDes: 112
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: WHILE
+      _value:
+        LineaDes: 143
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: SDO
+      _value:
+        LineaDes: 114
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: DO
+      _value:
+        LineaDes: 166
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: SIF
+      _value:
+        LineaDes: 108
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: IF
+      _value:
+        LineaDes: 195
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: SFOR
+      _value:
+        LineaDes: 110
+        TokenResultado: 0
+        listaTokenRetroceso: []
+    - _key: FOR
+      _value:
+        LineaDes: 174
+        TokenResultado: 0
+        listaTokenRetroceso: []

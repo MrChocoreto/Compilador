@@ -19,6 +19,7 @@ public class ControlTablas : MonoBehaviour
     [SerializeField] RectTransform CtablaNumLinea;
     [SerializeField] RectTransform CtablaValor;
     [SerializeField] RectTransform CtablaDesplasamiento;
+    [SerializeField] RectTransform CtablaValorDesplasamiento;
     [Space(10)]
     [SerializeField] RectTransform CmensajesTipo;
     [SerializeField] RectTransform CmensajesDescripcion;
@@ -41,6 +42,7 @@ public class ControlTablas : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> LisTablaNumLinea;
     [SerializeField] List<TextMeshProUGUI> LisTablaValor;
     [SerializeField] List<TextMeshProUGUI> LisTablaDesplasamiento;
+    [SerializeField] List<TextMeshProUGUI> LisTablaValorDesplasamiento;
     [Space(10)]
     [SerializeField] List<TextMeshProUGUI> LisMensajesTipo;
     [SerializeField] List<TextMeshProUGUI> LisMensajesDescripcion;
@@ -62,6 +64,7 @@ public class ControlTablas : MonoBehaviour
         LisTablaNumLinea = new List<TextMeshProUGUI>();
         LisTablaValor = new List<TextMeshProUGUI>();
         LisTablaDesplasamiento = new List<TextMeshProUGUI>();
+        LisTablaValorDesplasamiento = new List<TextMeshProUGUI>();
 
         LisMensajesTipo = new List<TextMeshProUGUI>();
         LisMensajesDescripcion = new List<TextMeshProUGUI>();
@@ -74,6 +77,7 @@ public class ControlTablas : MonoBehaviour
             CrearTexto("", CtablaNumLinea, LisTablaNumLinea);
             CrearTexto("", CtablaValor, LisTablaValor);
             CrearTexto("", CtablaDesplasamiento, LisTablaDesplasamiento);
+            CrearTexto("", CtablaValorDesplasamiento, LisTablaValorDesplasamiento);
         }
     }
     public void ComprobarIdentificador(string lexema, string token, string tipo, int linea)
@@ -118,6 +122,7 @@ public class ControlTablas : MonoBehaviour
             Destroy(LisTablaNumLinea[i].gameObject);
             Destroy(LisTablaValor[i].gameObject);
             Destroy(LisTablaDesplasamiento[i].gameObject);
+            Destroy(LisTablaValorDesplasamiento[i].gameObject);
         }
         num = LisMensajesTipo.Count;
         for (int i = 0; i < num; i++)
@@ -148,6 +153,7 @@ public class ControlTablas : MonoBehaviour
         CrearTexto(linea, CtablaNumLinea, LisTablaNumLinea);
         CrearTexto(valor, CtablaValor, LisTablaValor);
         CrearTexto(despla, CtablaDesplasamiento, LisTablaDesplasamiento);
+        CrearTexto("", CtablaValorDesplasamiento, LisTablaValorDesplasamiento);
     }
     public List<string> RegresarListaTokens()
     {
@@ -218,12 +224,25 @@ public class ControlTablas : MonoBehaviour
     {
         LisTablaDesplasamiento[pos].text = "" + despla;
     }
+    public void agregarValorDes(int pos, int despla)
+    {
+        LisTablaValorDesplasamiento[pos].text = "" + despla;
+    }
     public List<string> RegresarListaTokens2()
     {
         List<string> t = new List<string>();
         for (int i = 0; i < LisTablaToken.Count; i++)
         {
             t.Add(LisTablaToken[i].text);
+        }
+        return t;
+    }
+    public List<string> RegresarListaLexemas2()
+    {
+        List<string> t = new List<string>();
+        for (int i = 0; i < LisTablaLexemas.Count; i++)
+        {
+            t.Add(LisTablaLexemas[i].text);
         }
         return t;
     }
@@ -236,6 +255,28 @@ public class ControlTablas : MonoBehaviour
         }
         return t;
     }
+    public List<string> RegresarListaValor()
+    {
+        List<string> t = new List<string>();
+        for (int i = 0; i < LisTablaValor.Count; i++)
+        {
+            t.Add(LisTablaValor[i].text);
+        }
+        return t;
+    }
+    public List<string> RegresarListaDesplasamiento()
+    {
+        List<string> t = new List<string>();
+        for (int i = 0; i < LisTablaDesplasamiento.Count; i++)
+        {
+            t.Add(LisTablaDesplasamiento[i].text);
+        }
+        return t;
+    }
+    public string regresarDespla(int p)
+    {        
+        return LisTablaValorDesplasamiento[p].text;
+    }
     public void CambiarToken(string Iden, string T)
     {
         for (int i = 0; i < LisTablaLexemas.Count; i++)
@@ -246,5 +287,31 @@ public class ControlTablas : MonoBehaviour
                 break;
             }
         }
+    }
+    public string RegresarTipo(string Iden)
+    {
+        string T="";
+        for (int i = 0; i < LisTablaLexemas.Count; i++)
+        {
+            if (LisTablaLexemas[i].text == Iden)
+            {
+                T = LisTablaTipo[i].text;
+                break;
+            }
+        }
+        return T;
+    }
+    public string RegresarValor(string Iden)
+    {
+        string T = "";
+        for (int i = 0; i < LisTablaLexemas.Count; i++)
+        {
+            if (LisTablaLexemas[i].text == Iden)
+            {
+                T = LisTablaValor[i].text;
+                break;
+            }
+        }
+        return T;
     }
 }

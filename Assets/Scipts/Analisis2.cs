@@ -12,8 +12,8 @@ public class Analisis2 : MonoBehaviour
     List<string> Lexemas;
     public List<string> EntradaTokens;
     public List<int> LisLinea;
-    bool EncontroError,TipoEncontrado,ValorEncontrado,IdenEncntrado;
-    string tipo,identi,valor;
+    bool EncontroError,TipoEncontrado;
+    string tipo, identi;
     public void IniAnalisis(List<string> LTokens,List<int> Llineas)
     {
         LisTokens = new List<string>();
@@ -29,7 +29,7 @@ public class Analisis2 : MonoBehaviour
             
             LisLinea.Add(LisLinea[LisLinea.Count-1]);
             EntradaTokens.Add("FIN");
-            for (int i = 0; i < 150; i++)
+            for (int i = 0; i < 1000; i++)
             {
 
                 objetoLista p = Tabla[PosLinea[PosLinea.Count - 1]];
@@ -49,7 +49,7 @@ public class Analisis2 : MonoBehaviour
                 }
                 else if (p.Rutas.ContainsKey("TODO"))
                 {
-                    Debug.Log(1);
+                    Debug.Log(""+ p.Rutas.GetValueOrDefault("TODO").Value.TokenResultado);
                     Retroceso(p);
                 }
                 else
@@ -120,7 +120,6 @@ public class Analisis2 : MonoBehaviour
     }
     void DeclaracionBariable(string Token)
     {
-
         if (Token=="Tipo")
         {
             if (TipoEncontrado==false)
@@ -135,17 +134,18 @@ public class Analisis2 : MonoBehaviour
             if (CT.VariableDeclarada(identi))
             {
                 CT.AgregarMensaje("ERROR","Varible ya declarado con anterioridad: "+identi,""+LisLinea[0]);
-                tipo = "";
-                identi = "";
-                TipoEncontrado = false;
             }
             else
             {
-                TipoEncontrado = false;
-                IdenEncntrado = true;
                 CT.AgregarTipo(identi,tipo);
-                tipo = "";
+                if (EntradaTokens[1] == "PA")
+                {
+                    CT.CambiarToken(Lexemas[0], "Metodo");
+                }
             }
+            tipo = "";
+            identi = "";
+            TipoEncontrado = false;
         }
         else if (Token == "IDENTIFICADOR")
         {
@@ -162,45 +162,12 @@ public class Analisis2 : MonoBehaviour
                 else if (LisTokens[LisTokens.Count - 1] == "CLASS")
                 {
                     CT.CambiarToken(Lexemas[0], "CLASE");
+                    CT.AgregarTipo(Lexemas[0], "CLASE");
                 }
                 else
                 {
                     CT.AgregarMensaje("ERROR", "Varible no declarada: " + Lexemas[0], "" + LisLinea[0]);
                 }
-            }
-            else
-            {
-                if (ValorEncontrado == false)
-                {
-                    identi = Lexemas[0];
-                    IdenEncntrado = true;
-                }
-            }
-        }
-        else if (Token == "Asignacion" && IdenEncntrado==true)
-        {
-            ValorEncontrado = true;
-        }
-        else if (Token == "PYC"||Token== "PA" && ValorEncontrado == false 
-            || Token=="COMA" && ValorEncontrado==false || Token == "PC" && EntradaTokens[1] == "LLA")
-        {
-            if (Token == "PA")
-            {
-                CT.CambiarToken(identi, "Metodo");
-            }
-            CT.AgregarValor(identi, valor);
-            tipo = "";
-            identi = "";
-            valor = "";
-            TipoEncontrado = false;
-            IdenEncntrado = false;
-            ValorEncontrado = false;
-        }
-        if (ValorEncontrado==true)
-        {
-            if (Token!= "Asignacion")
-            {
-                valor += Lexemas[0];
             }
         }
     }

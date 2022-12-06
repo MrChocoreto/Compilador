@@ -10,7 +10,6 @@ public class LexicalAnalizer : MonoBehaviour
     [SerializeField] Analisis2 A2;
     [SerializeField, TextArea] private string Texto = default;
     private int NumLine = default,i=0;
-
     int ASCII = default;
     string palabra = default;
     string DebugMessage = default;
@@ -24,10 +23,15 @@ public class LexicalAnalizer : MonoBehaviour
         Texto = InputField.text;
         CT.LimpiarTodo();
         //limpio las listas para realizar un nuevo analisis
-        //ClearAnalizers();
+        analisis();
+        CT.AgregarMensaje("Notificacion","Se completo el analisis","");
+        A2.IniAnalisis(CT.RegresarListaTokens(),CT.RegresarListaLineas());
+    }
+    void analisis()
+    {
         // Inicializo el numero de linea siempre en 1
         NumLine = 1;
-        for (i = 0; i < Texto.Length-1; i++)
+        for (i = 0; i < Texto.Length - 1; i++)
         {
             //limpio la variable
             palabra = default;
@@ -36,7 +40,7 @@ public class LexicalAnalizer : MonoBehaviour
 
             // Reviso si hay un espacio, un salto de linea
             if (ASCII == 32 || ASCII == 10)
-            {              
+            {
                 if (ASCII == 10)
                 {
                     // y aqui solo voy aumentando la variable cada que hay un salto de linea
@@ -46,7 +50,7 @@ public class LexicalAnalizer : MonoBehaviour
             else
             {
                 //veo si es un identificador
-                if (ASCII >= 97 && ASCII <= 122 || ASCII>=65 && ASCII<=90 || ASCII == 95)
+                if (ASCII >= 97 && ASCII <= 122 || ASCII >= 65 && ASCII <= 90 || ASCII == 95)
                 {
                     EsIdentificador(NumLine);
                 }
@@ -54,7 +58,8 @@ public class LexicalAnalizer : MonoBehaviour
                 else if (ASCII >= 48 && ASCII <= 57)
                 {
                     esNumero(NumLine);
-                }else if (ASCII==34 || ASCII == 39)
+                }
+                else if (ASCII == 34 || ASCII == 39)
                 {
                     CadenasCaracter();
                 }
@@ -64,10 +69,7 @@ public class LexicalAnalizer : MonoBehaviour
                 }
             }
         }
-        CT.AgregarMensaje("Notificacion","Se completo el analisis","");
-        A2.IniAnalisis(CT.RegresarListaTokens(),CT.RegresarListaLineas());
     }
-
 
     #endregion
 
@@ -94,9 +96,7 @@ public class LexicalAnalizer : MonoBehaviour
         e--;
         //se da el avance e a i en los caracteres
         i = e;
-        //Debug.Log("Identificador Encontrado: " + palabra);
         CT.ComprobarIdentificador(palabra,"IDENTIFICADOR","",num_line);
-        //SymbolsTable.Add_New_Token(palabra,"Identificador", num_line);
     }  
     
     void esNumero(int num_line)
@@ -282,7 +282,7 @@ public class LexicalAnalizer : MonoBehaviour
                     {
                         i++;
                         //es un ==
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Comparacion", NumLine);
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "ESIGUAL", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i - 1] +""+ Texto[i], "Comparador", num_line);
                         //Debug.Log("Comparacion: " + Texto[i - 1] + Texto[i]);
                     }
@@ -307,7 +307,7 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 33)
                     {
                         i++;
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Diferencia", NumLine);
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "DIFERENCIA", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Diferente_de", num_line);
                         //Debug.Log("Diferencia: " + Texto[i - 1] + Texto[i]);
                     }
@@ -332,19 +332,19 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 61)
                     {
                         i++;
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Menor o igual que", NumLine);
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "MENORIGUAL", NumLine);
                         //Debug.Log("Menor o Igual que: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        CT.AgregarToken("" + Texto[i], "Menor que", NumLine);
+                        CT.AgregarToken("" + Texto[i], "MENOR", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Menor_que", num_line);
                         //Debug.Log("Menor que: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    CT.AgregarToken("" + Texto[i], "Menor que", NumLine);
+                    CT.AgregarToken("" + Texto[i], "MENOR", NumLine);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Menor_que", num_line);
                     //Debug.Log("Menor que: " + Texto[i]);
                 }
@@ -356,20 +356,20 @@ public class LexicalAnalizer : MonoBehaviour
                     if (ASCII == 61)
                     {
                         i++;
-                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "Mayor o igual que", NumLine);
+                        CT.AgregarToken(Texto[i - 1] + "" + Texto[i], "MAYORIGUAL", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i - 1] + "" + Texto[i], "Mayor_Igual", num_line);
                         //Debug.Log("Mayor o Igual que: " + Texto[i - 1] + Texto[i]);
                     }
                     else
                     {
-                        CT.AgregarToken("" + Texto[i], "Mayor que", NumLine);
+                        CT.AgregarToken("" + Texto[i], "MAYOR", NumLine);
                         //SymbolsTable.Add_New_Token("" + Texto[i], "Mayor_que", num_line);
                         //Debug.Log("Mayor que: " + Texto[i]);
                     }
                 }
                 else
                 {
-                    CT.AgregarToken("" + Texto[i], "Mayor que", NumLine);
+                    CT.AgregarToken("" + Texto[i], "MAYOR", NumLine);
                     //SymbolsTable.Add_New_Token("" + Texto[i], "Mayor_que", num_line);
                     //Debug.Log("Mayor que: " + Texto[i]);
                 }
@@ -480,6 +480,8 @@ public class LexicalAnalizer : MonoBehaviour
                 CT.AgregarToken("" + Texto[i], "COMA", NumLine);
                 //SymbolsTable.Add_New_Token("" + Texto[i], "PYC", num_line);
                 break;
+            case 9:
+                break;
             default:
                 CT.AgregarMensaje("ERROR","Caracter no reconocido: " + Texto[i], ""+num_line);
                 //console_Errors.DebugConsole(num_line, DebugMessage);
@@ -564,7 +566,7 @@ public class LexicalAnalizer : MonoBehaviour
     
     void CadenasCaracter()
     {
-        palabra += Texto[i];
+        //palabra += Texto[i];
         i++;
         //veo si es una cadeno o un caracter
         if (ASCII==34)
@@ -583,11 +585,9 @@ public class LexicalAnalizer : MonoBehaviour
                 }
                 if (ASCII == 34)
                 {
-                    palabra += Texto[e];
+                    //palabra += Texto[e];
                     Termino = true;
                     CT.AgregarToken(palabra,"CADENA", NumLine);
-                    //SymbolsTable.Add_New_Token(palabra, "Cadena", NumLine);
-                    //Debug.Log("Cadena de caracteres encontrado: " + palabra);
                     break;                   
                 }
                 palabra += Texto[e];
@@ -596,8 +596,6 @@ public class LexicalAnalizer : MonoBehaviour
             if (!Termino)
             {
                 CT.AgregarMensaje("ERROR", "No se cerro la cadena de caracteres", ""+numL);
-                //console_Errors.DebugConsole(numL, DebugMessage);
-                //Debug.Log("ERROR - No se cerro la cadena de caracteres linea: " + numL);
             }
         }
         else if (ASCII==39)

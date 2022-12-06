@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8b18c594378124ab13e634931f09f8, type: 3}
+  m_Name: Fila 145
+  m_EditorClassIdentifier: 
+  Rutas:
+    _keys:
+    - _key: CO
+      _value:
+        LineaDes: 157
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: ESIGUAL
+      _value:
+        LineaDes: 151
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: DIFERENCIA
+      _value:
+        LineaDes: 152
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: MAYOR
+      _value:
+        LineaDes: 153
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: MENOR
+      _value:
+        LineaDes: 154
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: MAYORIGUAL
+      _value:
+        LineaDes: 155
+        TokenResultado: 
+        listaTokenRetroceso: []
+    - _key: MENORIGUAL
+      _value:
+        LineaDes: 156
+        TokenResultado: 
+        listaTokenRetroceso: []
