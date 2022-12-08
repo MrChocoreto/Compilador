@@ -29,9 +29,8 @@ public class Analisis2 : MonoBehaviour
             
             LisLinea.Add(LisLinea[LisLinea.Count-1]);
             EntradaTokens.Add("FIN");
-            for (int i = 0; i < 1000; i++)
+            while(true)
             {
-
                 objetoLista p = Tabla[PosLinea[PosLinea.Count - 1]];
                 if (EntradaTokens[0] == "FIN" && PosLinea[1] == 1)
                 {

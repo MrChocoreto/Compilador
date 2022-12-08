@@ -150,8 +150,8 @@ Library: lib_burst_generated
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.2D.Common.Runtime.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.2D.IK.Runtime.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
---root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.Threading.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
+--root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.Threading.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.Networking.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.dll
@@ -314,8 +314,8 @@ Library: lib_burst_generated
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.2D.Common.Runtime.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.2D.IK.Runtime.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
---root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.Threading.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
+--root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.Threading.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.2D.Tilemap.Extras.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.Networking.dll
 --root-assembly=D:\documentos\j\Semestre 5\cpmpiladores\Compilador\Temp\StagingArea\Data\Managed\Unity.Services.Core.dll
